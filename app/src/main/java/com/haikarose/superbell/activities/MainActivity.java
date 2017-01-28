@@ -84,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
         }else if(id==R.id.report){
             intent=new Intent(MainActivity.this,ReportProblem.class);
             startActivity(intent);
+        }else if(id==R.id.invites){
+            String shared_content="Hello am using "+getResources().getString(R.string.app_name)+" to get recent news of my favorite channel. " +
+                    "Get it on google play today. https://play.google.com/store/apps/details?id=superbell.haikarose.com";
+            intent=new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT,shared_content);
+            Intent cooler_one=intent.createChooser(intent,"Complete process with:-");
+            startActivity(cooler_one);
         }
         return true;
     }
@@ -105,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             String time=sdf.format(date);
             post.setDate(time);
 
-            post.setMesage("Sample message for the post");
+            post.setMesage("It could be that you have only recently created a new Ad Unit ID and requesting for live ads. It could take a few hours for ads to start getting served if that is that case");
             postList.add(post);
         }
 

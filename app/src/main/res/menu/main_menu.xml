@@ -13,6 +13,13 @@
         app:showAsAction="never"
         android:id="@+id/about"
         />
+    <item
+        android:orderInCategory="104"
+        android:title="Suggest to a friend"
+        android:id="@+id/invites"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_action_share"/>
+
     <item android:title="Message dev"
         app:showAsAction="never"
         android:id="@+id/report"

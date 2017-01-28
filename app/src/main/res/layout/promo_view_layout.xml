@@ -1,0 +1,61 @@
+<!-- this is the start of the promo -->
+<LinearLayout
+    android:id="@+id/this_is_promo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:gravity="center"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/rounded_white">
+            <ImageView
+                android:id="@+id/promo_image"
+                android:gravity="center"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/brand_name"
+                android:text="OMIL TANZANIA ( omil.co.tz )"
+                android:autoLink="all"
+                android:textColorLink="@color/colorPrimary"
+                android:textColor="@android:color/black"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:id="@+id/promo_message"
+                android:autoLink="all"
+                android:textColorLink="@color/colorPrimary"
+                android:text="We are dealer on earth moving machines in dar es salaam and arusha tanzania We are dealer on earth moving machines in dar es salaam and arusha tanzania"
+                android:fontFamily="sans-serif-light"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+    <!-- this is the end of the promo -->

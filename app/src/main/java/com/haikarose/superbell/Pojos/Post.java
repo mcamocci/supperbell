@@ -1,5 +1,7 @@
 package com.haikarose.superbell.Pojos;
 
+import android.os.Bundle;
+
 import java.util.Date;
 
 /**
@@ -7,6 +9,12 @@ import java.util.Date;
  */
 
 public class Post {
+
+    public static final String DATE="DATE";
+    public static final String MESSAGE="MESSAGE";
+    public static final String RESOURCE="RESOURCE";
+
+
 
     private String date;
 
@@ -32,10 +40,33 @@ public class Post {
         return resource;
     }
 
+
+
     public void setResource(String resource) {
         this.resource = resource;
     }
 
     private String resource;
+
+    public static Bundle postToBundle(Post post){
+
+        Bundle bundle=new Bundle();
+        bundle.putString(Post.DATE,post.getDate());
+        bundle.putString(Post.MESSAGE,post.getMesage());
+        bundle.putString(Post.RESOURCE,post.getResource());
+
+        return bundle;
+    }
+
+    public static Post postFromBundle(Bundle bundle){
+
+
+        Post post=new Post();
+        post.setMesage(bundle.getString(Post.MESSAGE));
+        post.setDate(bundle.getString(Post.DATE));
+        post.setResource(bundle.getString(Post.RESOURCE));
+        return post;
+
+    }
 
 }
