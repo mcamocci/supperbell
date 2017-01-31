@@ -12,21 +12,34 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.haikarose.mediarose.Pojos.Post;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.adapters.PostItemAdapter;
+import com.haikarose.mediarose.tools.CommonInformation;
+import com.haikarose.mediarose.tools.EndlessRecyclerViewScrollListener;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 
+import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
+
 public class MainActivity extends AppCompatActivity {
 
-    private List<Post> postList=new ArrayList<>();
+    private List<Object> postList=new ArrayList<>();
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private PostItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +65,15 @@ public class MainActivity extends AppCompatActivity {
         //the fake data
         fakeData();
 
-        PostItemAdapter adapter=new PostItemAdapter(getBaseContext(),postList);
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(manager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                doTask(CommonInformation.GET_POST_LIST,page,8,postList);
+
+            }
+        });
+
+        adapter=new PostItemAdapter(getBaseContext(),postList);
         recyclerView.setAdapter(adapter);
 
     }
@@ -118,5 +139,45 @@ public class MainActivity extends AppCompatActivity {
             postList.add(post);
         }
 
+    }
+
+    public void doTask(String url, final int page, int total, final List<Object> categories){
+
+        AsyncHttpClient client=new AsyncHttpClient();
+        RequestParams params=new RequestParams();
+
+        try{
+            url+= URLEncoder.encode(Integer.toString(page),"UTF-8")+"/"+URLEncoder.encode(Integer.toString(total),"UTF-8");
+        }catch (Exception ex){
+
+        }
+
+
+        client.get(getBaseContext(), url, params, new TextHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                swipeRefreshLayout.setRefreshing(true);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Toast.makeText(getBaseContext(),responseString,Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+
+                swipeRefreshLayout.setRefreshing(false);
+                Type listType = new TypeToken<List<Post>>() {}.getType();
+                List<Post> yourList = new Gson().fromJson(responseString, listType);
+                //addNativeAddToList(page,categories);
+                categories.addAll(yourList);
+                adapter.notifyDataSetChanged();
+
+            }
+        });
     }
 }

@@ -15,12 +15,18 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/resources_recycler_view"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,6 +89,7 @@
                 ads:adSize="320x200"
                 ads:adUnitId="@string/native_ad_unit_id"
                 android:id="@+id/adView"/>
+
             <include layout="@layout/promo_view_layout"
                 android:id="@+id/include"
                 android:layout_width="match_parent"
@@ -92,21 +99,9 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="4dp"
-                android:layout_below="@+id/linearLayout2"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" >
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:id="@+id/resources_recycler_view"/>
-            </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

@@ -27,10 +27,10 @@ import java.util.List;
 
 public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHolder> {
 
-    private List<Post> items;
+    private List<Object> items;
     private Context firstContext;
 
-    public PostItemAdapter(Context context,List<Post> items){
+    public PostItemAdapter(Context context,List<Object> items){
         this.items=items;
         this.firstContext=context;
     }
@@ -49,7 +49,7 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
     @Override
     public void onBindViewHolder(ItemHolder holder, int position) {
 
-        Post post=items.get(position);
+        Post post=(Post)items.get(position);
         holder.setData(post);
 
     }
