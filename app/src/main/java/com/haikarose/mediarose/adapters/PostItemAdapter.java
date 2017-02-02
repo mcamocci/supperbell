@@ -15,7 +15,9 @@ import com.haikarose.mediarose.Pojos.Post;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.activities.ImageViewerActivity;
 import com.haikarose.mediarose.activities.PostDetailActivity;
+import com.haikarose.mediarose.tools.TransferrableContent;
 
+import java.io.PipedOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -41,7 +43,7 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.cat_item,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item,parent,false);
         ItemHolder holder=new ItemHolder(view);
         return holder;
     }
@@ -58,6 +60,8 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
 
         private Post post;
         private TextView date;
+        private TextView more_info;
+        private TextView uploader;
         private TextView message;
         private LinearLayout button;
         private ImageView promoImage;
@@ -68,7 +72,9 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
             context=view.getContext();
             view.setOnClickListener(this);
             this.date=(TextView)view.findViewById(R.id.time);
+            this.more_info=(TextView)view.findViewById(R.id.more_info);
             this.message=(TextView)view.findViewById(R.id.description);
+            this.uploader=(TextView)view.findViewById(R.id.uploader);
             this.promoImage=(ImageView)view.findViewById(R.id.image);
             promoImage.setOnClickListener(this);
            // this.button=(LinearLayout)view.findViewById(R.id.button);
@@ -77,13 +83,18 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
         public void setData(Post post){
             this.post=post;
             date.setText(post.getDate().toString());
-            message.setText(post.getMesage());
-            if(post.getResource()!=null){
+            message.setText(post.getContent());
+            uploader.setText(post.getName());
+            if(post.getResources().size()>1){
+                more_info.setText(Integer.toString(post.getResources().size()-1)+" "+context.getResources().getString(R.string.eye_label));
+            }else{
+                more_info.setText(context.getResources().getString(R.string.eye_label_empty));
+            }
+            if(post.getResources().size()>0 && post.getResources().get(0).getType().equalsIgnoreCase(Post.TYPE_IMAGE)){
                 promoImage.setVisibility(View.VISIBLE);
                 try{
-                    URL url=new URL("https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/16195034_760896287395877_1216980308058827388_n.jpg?_nc_eui2=v1%3AAeEeVhV4-89wpti2Qi5yaJsvu2XzIT6shc3RTzXkXXDy_Thk8pmzWvBf4xEnwsBHLmoiptK1Wycnx9HBViapuDq2O3Y31Ch22yDffkseEfRTKw&oh=d835e32fb126bb13229fd01de2d63bba&oe=58FEF358");
+                    URL url=new URL(post.getResources().get(0).getUrl());
                     Glide.with(firstContext).load(url.toString()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
-
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
@@ -104,8 +115,7 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
                 }else{
                     //do something when the button is clicked.
                     intent=new Intent(firstContext, PostDetailActivity.class);
-                    Bundle post_bundle=Post.postToBundle(post);
-                    intent.putExtras(post_bundle);
+                    intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(post));
                     ItemHolder.this.context.startActivity(intent);
                 }
 

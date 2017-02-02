@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,13 +21,13 @@ import com.haikarose.mediarose.Pojos.Post;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.adapters.PostItemAdapter;
 import com.haikarose.mediarose.tools.CommonInformation;
+import com.haikarose.mediarose.tools.DateHelper;
 import com.haikarose.mediarose.tools.EndlessRecyclerViewScrollListener;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +37,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Object> postList=new ArrayList<>();
+    private List<Object> postListOne=new ArrayList<>();
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private PostItemAdapter adapter;
@@ -61,19 +62,21 @@ public class MainActivity extends AppCompatActivity {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
 
+        doTask(CommonInformation.GET_POST_LIST,0,8,postListOne);
+
 
         //the fake data
-        fakeData();
+        //fakeData();
 
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(manager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                doTask(CommonInformation.GET_POST_LIST,page,8,postList);
+                doTask(CommonInformation.GET_POST_LIST,0,8,postListOne);
 
             }
         });
 
-        adapter=new PostItemAdapter(getBaseContext(),postList);
+        adapter=new PostItemAdapter(getBaseContext(),postListOne);
         recyclerView.setAdapter(adapter);
 
     }
@@ -135,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
             String time=sdf.format(date);
             post.setDate(time);
 
-            post.setMesage("It could be that you have only recently created a new Ad Unit ID and requesting for live ads. It could take a few hours for ads to start getting served if that is that case");
-            postList.add(post);
+            post.setContent("It could be that you have only recently created a new Ad Unit ID and requesting for live ads. It could take a few hours for ads to start getting served if that is that case");
+            postListOne.add(post);
         }
 
     }
@@ -145,15 +148,10 @@ public class MainActivity extends AppCompatActivity {
 
         AsyncHttpClient client=new AsyncHttpClient();
         RequestParams params=new RequestParams();
+        params.put(Post.PAGE,page);
+        params.put(Post.COUNT,total);
 
-        try{
-            url+= URLEncoder.encode(Integer.toString(page),"UTF-8")+"/"+URLEncoder.encode(Integer.toString(total),"UTF-8");
-        }catch (Exception ex){
-
-        }
-
-
-        client.get(getBaseContext(), url, params, new TextHttpResponseHandler() {
+        client.post(getBaseContext(), url, params, new TextHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -170,12 +168,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
 
+               // Toast.makeText(getBaseContext(),responseString,Toast.LENGTH_LONG).show();
+                Log.e("content loaded",responseString);
                 swipeRefreshLayout.setRefreshing(false);
                 Type listType = new TypeToken<List<Post>>() {}.getType();
-                List<Post> yourList = new Gson().fromJson(responseString, listType);
-                //addNativeAddToList(page,categories);
-                categories.addAll(yourList);
-                adapter.notifyDataSetChanged();
+                List<Post> postList = new Gson().fromJson(responseString, listType);
+
+                MainActivity.this.postListOne.addAll(postList);
+                Toast.makeText(getBaseContext(),
+                        Integer.toString(postList.size()),Toast.LENGTH_LONG).show();
+
+                for(int i=0;i<postList.size();i++){
+                    Log.e("user_name",postList.get(i).getName());
+                    Log.e("content",postList.get(i).getContent());
+                    Log.e("date",postList.get(i).getDate());
+                    Log.e("formatted", DateHelper.getPresentableDate(postList.get(i).getDate()));
+                    Log.e("id",Integer.toString(postList.get(i).getId()));
+                    if(postList.get(i).getResources()!=null){
+                        Log.e("res-count",Integer.toString(postList.get(i).getResources().size()));
+                    }
+                }
+
 
             }
         });

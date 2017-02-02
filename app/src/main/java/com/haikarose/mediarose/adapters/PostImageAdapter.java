@@ -15,6 +15,7 @@ import com.haikarose.mediarose.Pojos.PostImageItem;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.activities.ImageViewerActivity;
 import com.haikarose.mediarose.tools.CommonInformation;
+import com.haikarose.mediarose.tools.TransferrableContent;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,7 +49,6 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Item
 
     @Override
     public void onBindViewHolder(ItemHolder holder, int position) {
-
         PostImageItem post = (PostImageItem) items.get(position);
         holder.setData(post);
 
@@ -74,8 +74,7 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Item
             if (postImageItem.getUrl() != null) {
                 promoImage.setVisibility(View.VISIBLE);
                 try {
-                    //URL url = new URL(CommonInformation.COMMON+postImageItem.getUrl());
-                    URL url = new URL(postImageItem.getUrl());
+                    URL url = new URL(CommonInformation.COMMON+postImageItem.getUrl());
                     Glide.with(firstContext).load(url.toString()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
 
                 } catch (MalformedURLException e) {
@@ -92,8 +91,7 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Item
 
             if (v.getId() == R.id.image) {
                 intent = new Intent(firstContext, ImageViewerActivity.class);
-                Bundle post_bundle = Post.postToBundle(postImageItem.toPost(postImageItem));
-                intent.putExtras(post_bundle);
+                intent.putExtra(PostImageItem.EXCHANGE_RES_ID, TransferrableContent.toJsonObject(postImageItem));
                 PostImageAdapter.ItemHolder.this.context.startActivity(intent);
             }
 

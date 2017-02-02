@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="16dp"
+            android:background="@drawable/rounded_blue"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="16dp"
+                android:padding="8dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_signal_cellular_connected_no_internet_0_bar"
+                android:background="@drawable/circle"
+                android:id="@+id/linearLayout">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/network_problem"
+                android:id="@+id/textview_title"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/textview_message"
+                android:layout_margin="12dp"
+                android:isScrollContainer="true"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:text="@string/app_name"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

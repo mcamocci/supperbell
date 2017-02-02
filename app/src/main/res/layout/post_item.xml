@@ -25,8 +25,8 @@
                     android:layout_marginLeft="6dp"
                     android:background="@drawable/rounded_blue"
                     android:textSize="14sp"
-                    android:id="@+id/title"
-                    android:text="the date"
+                    android:id="@+id/uploader"
+                    android:text="the uploader"
                     android:layout_alignParentLeft="true"
                     tools:ignore="HardcodedText" />
 
@@ -36,7 +36,7 @@
                     android:layout_gravity="center"
                     android:id="@+id/more_menu"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_more" />
+                    android:src="@drawable/ic_launcher" />
             </RelativeLayout>
 
             <LinearLayout
@@ -83,12 +83,13 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:textColor="@android:color/black"
+                    android:id="@+id/more_info"
                     android:gravity="right"
                     android:textStyle="bold"
                     android:layout_marginTop="4dp"
                     android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
-                    android:text="see" />
+                    android:text="@string/eye_label" />
 
                 <TextView
                     android:layout_width="match_parent"

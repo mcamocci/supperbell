@@ -3,7 +3,9 @@
     package="com.haikarose.mediarose">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -14,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.haikarose.mediarose.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.haikarose.mediarose.activities.SearchActivity"
+            android:name=".activities.SearchActivity"
             android:label="@string/label">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -35,20 +37,22 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name="com.haikarose.mediarose.activities.AboutActivity" />
-        <activity android:name="com.haikarose.mediarose.activities.ReportProblem" />
-        <activity android:name="com.haikarose.mediarose.activities.PostDetailActivity" />
-        <activity android:name="com.haikarose.mediarose.activities.ImageViewerActivity"
-            android:theme="@style/BlackTheme"></activity>
-
+        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.ReportProblem" />
+        <activity android:name=".activities.PostDetailActivity" />
+        <activity
+            android:name=".activities.ImageViewerActivity"
+            android:theme="@style/BlackTheme" />
         //for vungle
-        <activity android:name="com.vungle.publisher.VideoFullScreenAdActivity"
+        <activity
+            android:name="com.vungle.publisher.VideoFullScreenAdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-
-        <activity android:name="com.vungle.publisher.MraidFullScreenAdActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.vungle.publisher.MraidFullScreenAdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity android:name=".activities.NoConnectionActivity"></activity>
     </application>
 
 </manifest>
