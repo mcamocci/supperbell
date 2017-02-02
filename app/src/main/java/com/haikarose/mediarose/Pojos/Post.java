@@ -1,7 +1,5 @@
 package com.haikarose.mediarose.Pojos;
 
-import android.os.Bundle;
-
 import java.util.List;
 
 /**
@@ -10,9 +8,6 @@ import java.util.List;
 
 public class Post {
 
-    public static final String DATE="DATE";
-    public static final String MESSAGE="MESSAGE";
-    public static final String RESOURCE="RESOURCE";
     public static final String PAGE="page";
     public static final String COUNT="count";
     public static final String TYPE_IMAGE="IMAGE";
@@ -21,7 +16,6 @@ public class Post {
 
 
     private String date;
-    private String resource;
     private String content;
     private String uploader;
     private int id;
@@ -43,39 +37,6 @@ public class Post {
         this.date = date;
     }
 
-
-
-    public String getResource() {
-        return resource;
-    }
-
-
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-
-
-    public static Bundle postToBundle(Post post){
-
-        Bundle bundle=new Bundle();
-        bundle.putString(Post.DATE,post.getDate());
-        bundle.putString(Post.MESSAGE,post.getContent());
-        bundle.putString(Post.RESOURCE,post.getResource());
-
-        return bundle;
-    }
-
-    public static Post postFromBundle(Bundle bundle){
-
-        Post post=new Post();
-        post.setContent(bundle.getString(Post.MESSAGE));
-        post.setDate(bundle.getString(Post.DATE));
-        post.setResource(bundle.getString(Post.RESOURCE));
-        return post;
-
-    }
 
     public void addResourceList(PostImageItem resource){
         this.resources.add(resource);

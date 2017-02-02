@@ -21,16 +21,13 @@ import com.haikarose.mediarose.Pojos.Post;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.adapters.PostItemAdapter;
 import com.haikarose.mediarose.tools.CommonInformation;
-import com.haikarose.mediarose.tools.DateHelper;
 import com.haikarose.mediarose.tools.EndlessRecyclerViewScrollListener;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -64,10 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         doTask(CommonInformation.GET_POST_LIST,0,8,postListOne);
 
-
-        //the fake data
-        //fakeData();
-
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(manager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
@@ -75,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         adapter=new PostItemAdapter(getBaseContext(),postListOne);
         recyclerView.setAdapter(adapter);
 
@@ -109,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
             intent=new Intent(MainActivity.this,ReportProblem.class);
             startActivity(intent);
         }else if(id==R.id.invites){
-            String shared_content="Hello am using "+getResources().getString(R.string.app_name)+" to get recent news of my favorite channel. " +
-                    "Get it on google play today. https://play.google.com/store/apps/details?id=superbell.haikarose.com";
+            String shared_content="Hello am using "+getResources().getString(R.string.app_name)+" to get recent news posted at IFM. " +
+                    "Get it on google play today. https://play.google.com/store/apps/details?id=com.haikarose.mediarose";
             intent=new Intent();
             intent.setAction(Intent.ACTION_SEND);
             intent.setType("text/plain");
@@ -121,28 +113,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-    public void fakeData(){
-
-        for(int i=0;i<10;i++){
-            Post post=new Post();
-
-            if(i==2 || i==7){
-                post.setResource("https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/16195034_760896287395877_1216980308058827388_n.jpg?_nc_eui2=v1%3AAeEeVhV4-89wpti2Qi5yaJsvu2XzIT6shc3RTzXkXXDy_Thk8pmzWvBf4xEnwsBHLmoiptK1Wycnx9HBViapuDq2O3Y31Ch22yDffkseEfRTKw&oh=d835e32fb126bb13229fd01de2d63bba&oe=58FEF358");
-            }else{
-                post.setResource(null);
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm");
-            Date date=new Date();
-            String time=sdf.format(date);
-            post.setDate(time);
-
-            post.setContent("It could be that you have only recently created a new Ad Unit ID and requesting for live ads. It could take a few hours for ads to start getting served if that is that case");
-            postListOne.add(post);
-        }
-
-    }
 
     public void doTask(String url, final int page, int total, final List<Object> categories){
 
@@ -161,33 +131,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Toast.makeText(getBaseContext(),responseString,Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
-               // Toast.makeText(getBaseContext(),responseString,Toast.LENGTH_LONG).show();
                 Log.e("content loaded",responseString);
                 swipeRefreshLayout.setRefreshing(false);
                 Type listType = new TypeToken<List<Post>>() {}.getType();
-                List<Post> postList = new Gson().fromJson(responseString, listType);
-
-                MainActivity.this.postListOne.addAll(postList);
-                Toast.makeText(getBaseContext(),
-                        Integer.toString(postList.size()),Toast.LENGTH_LONG).show();
-
-                for(int i=0;i<postList.size();i++){
-                    Log.e("user_name",postList.get(i).getName());
-                    Log.e("content",postList.get(i).getContent());
-                    Log.e("date",postList.get(i).getDate());
-                    Log.e("formatted", DateHelper.getPresentableDate(postList.get(i).getDate()));
-                    Log.e("id",Integer.toString(postList.get(i).getId()));
-                    if(postList.get(i).getResources()!=null){
-                        Log.e("res-count",Integer.toString(postList.get(i).getResources().size()));
-                    }
-                }
+                List<Post> postList = new Gson().fromJson(responseString, listType);postListOne.addAll(postList);
+                adapter.notifyDataSetChanged();
 
 
             }

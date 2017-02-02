@@ -26,9 +26,4 @@ public class PostImageItem {
         return this.type;
     }
 
-    public Post toPost(PostImageItem item){
-        Post post=new Post();
-        post.setResource(item.getUrl());
-        return post;
-    }
 }

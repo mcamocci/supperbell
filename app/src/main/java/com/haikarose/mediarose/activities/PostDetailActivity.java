@@ -9,14 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.NativeExpressAdView;
 import com.haikarose.mediarose.Pojos.Post;
-import com.haikarose.mediarose.Pojos.PostImageItem;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.adapters.PostImageAdapter;
 import com.haikarose.mediarose.tools.CommonInformation;
+import com.haikarose.mediarose.tools.DateHelper;
 import com.haikarose.mediarose.tools.ESAObjectHelper;
 import com.haikarose.mediarose.tools.StringUpperHelper;
 import com.haikarose.mediarose.tools.TransferrableContent;
@@ -69,17 +70,15 @@ public class PostDetailActivity extends AppCompatActivity {
         time=(TextView)findViewById(R.id.time_of_update);
 
         //the things to be shared//
-        shared_content=post.getContent()+" , ( Why waiting for a friend to share? please download mediabell app. " +
-                "https://play.google.com/store/apps/details?id=mediabells.meena.com.mediabells16 )";
+        shared_content=post.getContent()+" , ( Download "
+                +getResources().getString(R.string.app_name)+" app. " +
+                "https://play.google.com/store/apps/details?id=com.haikarose.mediarose )";
 
         message.setText(StringUpperHelper.doUpperlization(post.getContent()));
 
-
-        time.setText(post.getDate());
-
+        time.setText(DateHelper.getPresentableDate(post.getDate()));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(StringUpperHelper.doUpperlization(getResources().getString(R.string.app_name)));
-
+        getSupportActionBar().setTitle(StringUpperHelper.doUpperlization(post.getName()));
 
     }
 

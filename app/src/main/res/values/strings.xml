@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Mediarose</string>
-    <string name="hint">category</string>
+    <string name="hint">poster</string>
     <string name="label">search</string>
     <string name="photo_viewer">PHOTO</string>
     <string name="copyrights">\u00a9 2016 Haikarose lab</string>
@@ -11,7 +11,7 @@
     <string name="dumy_short_text">It is a long established fact that a reader will be distracted by the readable content of a page</string>
     <string name="native_ad_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="native_ad_unit_id">ca-app-pub-2816298192313243/8578109011</string>
-    <string name="dialog_text">Please enjoy watching a 10 seconds promo video from sponsors while we prepare the process. You can cancel after seeing the close button on the promo video.</string>
+    <string name="dialog_text">Please enjoy watching a 10 seconds promo video from sponsors while we perform the download process. You can cancel after seeing the close button on the promo video.</string>
     <string name="no_connection">Couldnt connect!!</string>
     <string name="network_problem">Poor connection , try again later!!</string>
     <string name="eye_label">more</string>

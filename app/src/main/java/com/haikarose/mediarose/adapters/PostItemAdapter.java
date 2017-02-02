@@ -15,6 +15,7 @@ import com.haikarose.mediarose.Pojos.Post;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.activities.ImageViewerActivity;
 import com.haikarose.mediarose.activities.PostDetailActivity;
+import com.haikarose.mediarose.tools.DateHelper;
 import com.haikarose.mediarose.tools.TransferrableContent;
 
 import java.io.PipedOutputStream;
@@ -82,7 +83,7 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
 
         public void setData(Post post){
             this.post=post;
-            date.setText(post.getDate().toString());
+            date.setText(DateHelper.getPresentableDate(post.getDate().toString()));
             message.setText(post.getContent());
             uploader.setText(post.getName());
             if(post.getResources().size()>1){
@@ -109,8 +110,7 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
 
                 if(v.getId()==R.id.image){
                     intent=new Intent(firstContext, ImageViewerActivity.class);
-                    Bundle post_bundle=Post.postToBundle(post);
-                    intent.putExtras(post_bundle);
+                    intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(post));
                     ItemHolder.this.context.startActivity(intent);
                 }else{
                     //do something when the button is clicked.
