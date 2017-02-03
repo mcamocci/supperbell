@@ -3,41 +3,20 @@ package com.haikarose.mediarose.activities;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.haikarose.mediarose.Pojos.Post;
+import com.haikarose.mediarose.HomeFragment;
 import com.haikarose.mediarose.R;
-import com.haikarose.mediarose.adapters.PostItemAdapter;
-import com.haikarose.mediarose.tools.CommonInformation;
-import com.haikarose.mediarose.tools.EndlessRecyclerViewScrollListener;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
+import com.haikarose.mediarose.tools.ConnectionChecker;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Object> postListOne=new ArrayList<>();
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private PostItemAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,31 +24,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefresh);
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+        HomeFragment homeFragment=new HomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
 
-        recyclerView=(RecyclerView)findViewById(R.id.recyclerView);
-        LinearLayoutManager manager=new LinearLayoutManager(getBaseContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-
-        doTask(CommonInformation.GET_POST_LIST,0,8,postListOne);
-
-        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(manager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                doTask(CommonInformation.GET_POST_LIST,0,8,postListOne);
-
-            }
-        });
-        adapter=new PostItemAdapter(getBaseContext(),postListOne);
-        recyclerView.setAdapter(adapter);
+        if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
+            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -114,36 +77,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void doTask(String url, final int page, int total, final List<Object> categories){
 
-        AsyncHttpClient client=new AsyncHttpClient();
-        RequestParams params=new RequestParams();
-        params.put(Post.PAGE,page);
-        params.put(Post.COUNT,total);
-
-        client.post(getBaseContext(), url, params, new TextHttpResponseHandler() {
-
-            @Override
-            public void onStart() {
-                super.onStart();
-                swipeRefreshLayout.setRefreshing(true);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.e("content loaded",responseString);
-                swipeRefreshLayout.setRefreshing(false);
-                Type listType = new TypeToken<List<Post>>() {}.getType();
-                List<Post> postList = new Gson().fromJson(responseString, listType);postListOne.addAll(postList);
-                adapter.notifyDataSetChanged();
-
-
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
+            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            startActivity(intent);
+        }
     }
 }

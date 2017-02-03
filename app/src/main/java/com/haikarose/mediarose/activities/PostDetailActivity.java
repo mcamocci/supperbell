@@ -17,6 +17,7 @@ import com.haikarose.mediarose.Pojos.Post;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.adapters.PostImageAdapter;
 import com.haikarose.mediarose.tools.CommonInformation;
+import com.haikarose.mediarose.tools.ConnectionChecker;
 import com.haikarose.mediarose.tools.DateHelper;
 import com.haikarose.mediarose.tools.ESAObjectHelper;
 import com.haikarose.mediarose.tools.StringUpperHelper;
@@ -41,6 +42,11 @@ public class PostDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
+
+        if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
+            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            startActivity(intent);
+        }
 
         post= TransferrableContent.fromJsonToPost(getIntent().getStringExtra(Post.EXCHANGE_ID));
 
@@ -122,5 +128,14 @@ public class PostDetailActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
+            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            startActivity(intent);
+        }
     }
 }

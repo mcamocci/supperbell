@@ -3,6 +3,7 @@ package com.haikarose.mediarose.activities;
 import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.haikarose.mediarose.Pojos.PostImageItem;
 import com.haikarose.mediarose.R;
+import com.haikarose.mediarose.tools.ConnectionChecker;
 import com.haikarose.mediarose.tools.TransferrableContent;
 import com.vungle.publisher.VunglePub;
 import java.net.MalformedURLException;
@@ -40,6 +42,10 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
 
+        if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
+            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            startActivity(intent);
+        }
         rewardedVideoAd= MobileAds.getRewardedVideoAdInstance(this);
         rewardedVideoAd.setRewardedVideoAdListener(this);
         doVungleWay();
@@ -107,6 +113,10 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
     @Override
     protected void onResume() {
         super.onResume();
+        if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
+            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            startActivity(intent);
+        }
         vunglePub.onResume();
     }
 
@@ -224,5 +234,7 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
         //Display the Alert Dialog on app interface
         adb.show();*/
     }
+
+
 
 }

@@ -16,4 +16,8 @@
     <string name="network_problem">Poor connection , try again later!!</string>
     <string name="eye_label">more</string>
     <string name="eye_label_empty">view</string>
+    <string name="no_content">no results founds</string>
+    <string name="search_message">You searched for</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

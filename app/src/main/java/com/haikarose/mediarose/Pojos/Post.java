@@ -12,6 +12,7 @@ public class Post {
     public static final String COUNT="count";
     public static final String TYPE_IMAGE="IMAGE";
     public static final String EXCHANGE_ID="EXCHANGE_ID";
+    public static final String SEARCH="SEARCH";
 
 
 
