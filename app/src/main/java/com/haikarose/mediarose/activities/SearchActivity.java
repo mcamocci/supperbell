@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.haikarose.mediarose.Pojos.Post;
@@ -109,7 +108,7 @@ public class SearchActivity extends AppCompatActivity {
     private void doSearch(String queryStr) {
         Toast.makeText(getBaseContext(),getResources().getString(R.string.search_message)+" "+queryStr,Toast.LENGTH_SHORT).show();
         keyword=queryStr;
-        doTask(CommonInformation.GET_POST_LIST,0,8,queryStr,postListOne);
+        doTask(CommonInformation.GET_POST_LIST_SEARCH,0,8,queryStr,postListOne);
     }
 
     @Override
@@ -178,10 +177,7 @@ public class SearchActivity extends AppCompatActivity {
                 Log.e("content loaded",responseString);
                 retry_view.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
-                Type listType = new TypeToken<List<Post>>() {}.getType();
-                List<Post> postList = new Gson().fromJson(responseString, listType);
-                categories.addAll(postList);
-                adapter.notifyDataSetChanged();
+
 
                 if(responseString.length()<5 && categories.size()<1){
 
@@ -196,6 +192,11 @@ public class SearchActivity extends AppCompatActivity {
                         }
 
                     });
+                }else{
+                    Type listType = new TypeToken<List<Post>>() {}.getType();
+                    List<Post> postList = new Gson().fromJson(responseString, listType);
+                    categories.addAll(postList);
+                    adapter.notifyDataSetChanged();
                 }
 
 

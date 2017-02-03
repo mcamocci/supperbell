@@ -11,7 +11,7 @@ public class CommonInformation {
         public static final String POST_MAN_LOGIN=COMMON+"/owner/login";
         public static final String POST_MAN_REGISTRATION=COMMON+"/register/user";
         public static final String GET_POST_LIST=COMMON+"/superbell_backend/getPosts.php";
-        public static final String GET_POST_LIST_SEARCH=COMMON+"/superbell_backend/getPostsSearch.php";
+        public static final String GET_POST_LIST_SEARCH=COMMON+"/superbell_backend/getPostsByName.php";
         public static final String ESA0BJECT_URL=COMMON_ESA+"/esaobject";
 
 }

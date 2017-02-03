@@ -151,7 +151,7 @@ public class HomeFragment extends  Fragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.e("content loaded",responseString);
+
                 retry_view.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
                 Type listType = new TypeToken<List<Post>>() {}.getType();
