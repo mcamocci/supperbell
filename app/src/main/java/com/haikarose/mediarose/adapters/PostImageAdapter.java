@@ -2,15 +2,14 @@ package com.haikarose.mediarose.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.haikarose.mediarose.Pojos.Post;
 import com.haikarose.mediarose.Pojos.PostImageItem;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.activities.ImageViewerActivity;
@@ -74,7 +73,8 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Item
             if (postImageItem.getUrl() != null) {
                 promoImage.setVisibility(View.VISIBLE);
                 try {
-                    URL url = new URL(CommonInformation.COMMON+postImageItem.getUrl());
+                    URL url = new URL(postImageItem.getUrl());
+                    Log.e("url here",CommonInformation.COMMON+"/"+postImageItem.getUrl());
                     Glide.with(firstContext).load(url.toString()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
 
                 } catch (MalformedURLException e) {

@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -97,7 +98,7 @@ public class HomeFragment extends  Fragment {
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(manager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                doTask(CommonInformation.GET_POST_LIST,0,8,postListOne);
+                doTask(CommonInformation.GET_POST_LIST,page,totalItemsCount,postListOne);
 
             }
         });
@@ -105,8 +106,6 @@ public class HomeFragment extends  Fragment {
         recyclerView.setAdapter(adapter);
 
         //the network issue is solved here
-
-
         return view;
     }
 
@@ -136,6 +135,8 @@ public class HomeFragment extends  Fragment {
                 swipeRefreshLayout.setRefreshing(false);
                 retry_view.setVisibility(View.VISIBLE);
 
+                Toast.makeText(getContext(),responseString,Toast.LENGTH_SHORT).show();
+
                 retry_view.setOnClickListener(new View.OnClickListener(){
 
                     @Override
@@ -144,6 +145,7 @@ public class HomeFragment extends  Fragment {
                         TextView textView=(TextView)retry_view.findViewById(R.id.message_text);
                         textView.setText(R.string.no_connection);
                         doTask(url,page,total,categories);
+
                     }
 
                 });

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,12 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdRequest;
+/*import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient;*/
 import com.haikarose.mediarose.Pojos.PostImageItem;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.tools.ConnectionChecker;
@@ -27,15 +29,12 @@ import com.vungle.publisher.VunglePub;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ImageViewerActivity extends AppCompatActivity implements RewardedVideoAdListener {
+public class ImageViewerActivity extends AppCompatActivity {
 
     // get the VunglePub instance
-    final VunglePub vunglePub = VunglePub.getInstance();
+    VunglePub vunglePub = VunglePub.getInstance();
 
     DownloadManager downloadManager;
-    private RewardedVideoAd rewardedVideoAd;
-    private PostImageItem postImageItem;
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,28 +45,22 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
             Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
             startActivity(intent);
         }
-        rewardedVideoAd= MobileAds.getRewardedVideoAdInstance(this);
-        rewardedVideoAd.setRewardedVideoAdListener(this);
+      /*  rewardedVideoAd= MobileAds.getRewardedVideoAdInstance(this);
+        rewardedVideoAd.setRewardedVideoAdListener(this);*/
         doVungleWay();
-        loadAd();
+        //loadAd();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.photo_viewer));
+        actionBarTitle("PHOTO");
         getSupportActionBar().setIcon(R.drawable.ic_action_camera);
-        postImageItem= TransferrableContent.fromJsonToPostImageItem(getIntent().getStringExtra(PostImageItem.EXCHANGE_RES_ID));
+
 
         ImageView promo_image = (ImageView) findViewById(R.id.imageView2);
         Context context = getBaseContext();
 
 
-        URL url1 = null;
-        try {
-            url1 = new URL(postImageItem.getUrl());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
-        Glide.with(context).load(url1).placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promo_image);
+        //Glide.with(context).load(url1).placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promo_image);
 
     }
 
@@ -84,16 +77,18 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
             finish();
         }else if(id==R.id.share){
             if(vunglePub.isAdPlayable()){
-                showNetDialog(getBaseContext(),"Share content");
-            }else{
+                Log.e("playable","yes");
+                showNetDialogShare(getBaseContext(),"Download content");
 
+            }else{
+                Log.e("playable","no");
             }
         }else if(id==R.id.download){
-            showNetDialog(getBaseContext(),"Download content");
             if(vunglePub.isAdPlayable()){
+                Log.e("playable","yes");
                 showNetDialog(getBaseContext(),"Download content");
             }else{
-
+                Log.e("playable","no");
             }
         }
         return true;
@@ -126,48 +121,6 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
         vunglePub.onPause();
     }
 
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdLoaded() {
-
-    }
-
-    @Override
-    public void onRewardedVideoStarted() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdOpened() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-
-    }
-
-    public void loadAd(){
-        if(!rewardedVideoAd.isLoaded()){
-            //ca-app-pub-2816298192313243/6307470213
-            //rewardedVideoAd.loadAd(AdRequest.Builder.addTestDevice("89CA7DE86D7FEE4D3EDAAE6157B5CBFB");
-            rewardedVideoAd.loadAd("89CA7DE86D7FEE4D3EDAAE6157B5CBFB",new AdRequest.Builder().build());
-        }
-    }
 
     public void doVungleWay(){
         // get your App ID from the app's main page on the Vungle Dashboard after setting up your app
@@ -177,7 +130,7 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
         vunglePub.init(this, app_id);
     }
 
-    public  void showNetDialog(final Context context,String title){
+    public  void showNetDialogShare(final Context context,String title){
 
         final Dialog dialog = new Dialog(this);
 
@@ -193,6 +146,11 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
             public void onClick(View v) {
                 vunglePub.playAd();
                 dialog.dismiss();
+                Intent intent=new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                //intent.putExtra(Intent.EXTRA_TEXT,postImageItem.getUrl());
+                //startActivity(intent);
             }
         });
         cancel.setOnClickListener(new View.OnClickListener(){
@@ -204,37 +162,51 @@ public class ImageViewerActivity extends AppCompatActivity implements RewardedVi
 
         dialog.show();
 
-
-      /*  final AlertDialog.Builder adb = new AlertDialog.Builder(context);
-        adb.setTitle(title);
-        adb.setMessage(message);
-
-        //Set the Yes/Positive and No/Negative Button text
-        String yesButtonText = "Yes";
-        String noButtonText = "No";
-        //Define the positive button text and action on alert dialog
-        adb.setPositiveButton(yesButtonText, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                //something to be done here
-                *//*Intent intent=new Intent(context, SendingLogIntentService.class);
-                context.startService(intent);*//*
-
-            }
-        });
-
-        //Define the negative button text and action on alert dialog
-        adb.setNegativeButton(noButtonText, new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                //something else to be also done here
-            }
-        });
-
-        //Display the Alert Dialog on app interface
-        adb.show();*/
     }
 
+    public  void showNetDialog(final Context context,String title){
+
+        final Dialog dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.dialog_view_download);
+        dialog.setTitle(title);
+
+        final TextView editTextKeywordToBlock=(TextView) dialog.findViewById(R.id.editTextKeywordsToBlock);
+        TextView ok=(TextView)dialog.findViewById(R.id.ok);
+        TextView cancel= (TextView)dialog.findViewById(R.id.cancel);
+
+        ok.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                vunglePub.playAd();
+                dialog.dismiss();
+
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public void actionBarTitle(String title){
+
+        this.getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        LayoutInflater inflator = LayoutInflater.from(this);
+        View v = inflator.inflate(R.layout.custom_title_other, null);
+
+        //if you need to customize anything else about the text, do it here.
+        //I'm using a custom TextView with a custom font in my layout xml so all I need to do is set title
+        ((TextView)v.findViewById(R.id.title)).setText(title);
+        //assign the view to the actionbar
+        this.getSupportActionBar().setCustomView(v);
+    }
 
 
 }

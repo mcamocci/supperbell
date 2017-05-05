@@ -13,6 +13,13 @@
         app:showAsAction="never"
         android:id="@+id/about"
         />
+    <item android:title="Feedback"
+        app:showAsAction="never"
+        android:id="@+id/feedback"/>
+
+    <item android:title="Rate us"
+        app:showAsAction="never"
+        android:id="@+id/rate_us"/>
     <item
         android:orderInCategory="104"
         android:title="Suggest to a friend"
@@ -20,8 +27,4 @@
         app:showAsAction="never"
         android:icon="@drawable/ic_action_share"/>
 
-    <item android:title="Message dev"
-        app:showAsAction="never"
-        android:id="@+id/report"
-        />
 </menu>

@@ -1,5 +1,6 @@
 package com.haikarose.mediarose.Pojos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public class Post {
     private String content;
     private String uploader;
     private int id;
+
+
     private List<PostImageItem> resources;
 
     public String getContent() {

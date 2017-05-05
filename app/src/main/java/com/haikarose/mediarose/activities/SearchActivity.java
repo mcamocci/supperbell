@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,7 +72,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(manager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                doTask(CommonInformation.GET_POST_LIST_SEARCH,0,8,keyword,postListOne);
+                doTask(CommonInformation.GET_POST_LIST_SEARCH,page,totalItemsCount,keyword,postListOne);
 
             }
         });
@@ -202,6 +203,20 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void actionBarTitle(String title){
+
+        this.getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        LayoutInflater inflator = LayoutInflater.from(this);
+        View v = inflator.inflate(R.layout.custom_title_other, null);
+
+        //if you need to customize anything else about the text, do it here.
+        //I'm using a custom TextView with a custom font in my layout xml so all I need to do is set title
+        ((TextView)v.findViewById(R.id.title)).setText(title);
+        //assign the view to the actionbar
+        this.getSupportActionBar().setCustomView(v);
     }
 
 }

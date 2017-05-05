@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/pattern_two"
+    android:background="#EEEEEE"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:layout_marginTop="24dp"
         >
 
         <LinearLayout
@@ -38,7 +35,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textSize="24sp"
-                        android:drawableLeft="@drawable/ic_launcher"
+
                         android:layout_marginBottom="4dp"
                         android:drawablePadding="0dp"
                         android:text="@string/app_name"
@@ -116,6 +113,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif-light"
                         android:text="@string/version_title"
                         android:layout_marginRight="12dp"
                         android:id="@+id/time"

@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.NativeExpressAdView;
+/*import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;*/
 import com.haikarose.mediarose.Pojos.Post;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.adapters.PostImageAdapter;
@@ -58,12 +59,12 @@ public class PostDetailActivity extends AppCompatActivity {
         resorcesRecyclerView.setAdapter(adapter);
 
 
-        NativeExpressAdView nativeExpressAdView=(NativeExpressAdView)findViewById(R.id.adView);
+        /*NativeExpressAdView nativeExpressAdView=(NativeExpressAdView)findViewById(R.id.adView);
         //nativeExpressAdView.loadAd(new AdRequest.Builder().build());
         //nativeExpressAdView.setAdUnitId(getResources().getString(R.string.native_ad_unit_id));
         //AdSize size=new AdSize(300,150);
         //nativeExpressAdView.setAdSize(size);
-        nativeExpressAdView.loadAd(new AdRequest.Builder().build());
+        nativeExpressAdView.loadAd(new AdRequest.Builder().build());*/
 
 
         View view=findViewById(R.id.include);
@@ -82,7 +83,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         time.setText(DateHelper.getPresentableDate(post.getDate()));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(StringUpperHelper.doUpperlization(post.getName()));
+        actionBarTitle(StringUpperHelper.doUpperlization(post.getName()));
 
     }
 
@@ -136,4 +137,21 @@ public class PostDetailActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    public void actionBarTitle(String title){
+
+        this.getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        LayoutInflater inflator = LayoutInflater.from(this);
+        View v = inflator.inflate(R.layout.custom_title_other, null);
+
+        //if you need to customize anything else about the text, do it here.
+        //I'm using a custom TextView with a custom font in my layout xml so all I need to do is set title
+        ((TextView)v.findViewById(R.id.title)).setText(title);
+        //assign the view to the actionbar
+        this.getSupportActionBar().setCustomView(v);
+    }
+
+
+
 }

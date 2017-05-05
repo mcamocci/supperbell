@@ -1,22 +1,24 @@
 <resources>
-    <string name="app_name">Mediarose</string>
+    <string name="app_name">PrimePost</string>
     <string name="hint">poster</string>
     <string name="label">search</string>
+    <string name="phone">+255719030004</string>
     <string name="photo_viewer">PHOTO</string>
-    <string name="copyrights">\u00a9 2016 Haikarose lab</string>
-    <string name="about_message">Mediarose is the proud product of Haikarose software laboratory.</string>
-    <string name="version_title">version 1.0</string>
+    <string name="copyrights">\u00a9 2017 Haikarose lab</string>
+    <string name="about_message">Prime is the proud product of Haikarose software laboratory.</string>
+    <string name="version_title">version 0.1</string>
     <string name="about_menu">About</string>
-    <string name="email">sb-haikarose@gmail.com</string>
+    <string name="email">mcamocci@gmail.com</string>
     <string name="dumy_short_text">It is a long established fact that a reader will be distracted by the readable content of a page</string>
     <string name="native_ad_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="native_ad_unit_id">ca-app-pub-2816298192313243/8578109011</string>
     <string name="dialog_text">Please enjoy watching a 10 seconds promo video from sponsors while we perform the download process. You can cancel after seeing the close button on the promo video.</string>
+    <string name="dialog_text_download">The requested download action is not yet complete , Please enjoy watching a 10 seconds promo video from sponsors , You may cancel.</string>
     <string name="no_connection">Couldnt connect!!</string>
     <string name="network_problem">Poor connection , try again later!!</string>
     <string name="eye_label">more</string>
-    <string name="eye_label_empty">view</string>
-    <string name="no_content">no results founds</string>
+    <string name="eye_label_empty">detail</string>
+    <string name="no_content">no results please try to check again later for the new published post</string>
     <string name="search_message">You searched for</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

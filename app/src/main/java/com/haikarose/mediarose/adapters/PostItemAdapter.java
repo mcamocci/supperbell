@@ -3,15 +3,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.haikarose.mediarose.Pojos.Post;
+import com.haikarose.mediarose.Pojos.PostImageItem;
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.activities.ImageViewerActivity;
 import com.haikarose.mediarose.activities.PostDetailActivity;
@@ -91,13 +94,23 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
             }else{
                 more_info.setText(context.getResources().getString(R.string.eye_label_empty));
             }
-            if(post.getResources().size()>0 && post.getResources().get(0).getType().equalsIgnoreCase(Post.TYPE_IMAGE)){
-                promoImage.setVisibility(View.VISIBLE);
-                try{
-                    URL url=new URL(post.getResources().get(0).getUrl());
-                    Glide.with(firstContext).load(url.toString()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
+            if(post.getResources().size()>0){
+                if (post.getResources().get(0).getType().equalsIgnoreCase("PNG")
+                        || post.getResources().get(0).getType().equalsIgnoreCase("JPG")
+                        || post.getResources().get(0).getType().equalsIgnoreCase("JPEG")
+                        || post.getResources().get(0).getType().equalsIgnoreCase("GIF")) {
+                    Log.e("the type",post.getResources().get(0).getType());
+                    promoImage.setVisibility(View.VISIBLE);
+                    try{
+
+                        URL url=new URL(post.getResources().get(0).getUrl());
+                        Glide.with(firstContext).load(url.toString()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Log.e("the type not image",post.getResources().get(0).getType());
+                    promoImage.setVisibility(View.GONE);
                 }
             }else{
                 promoImage.setVisibility(View.GONE);
@@ -109,7 +122,14 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
                 Intent intent;
 
                 if(v.getId()==R.id.image){
-                    intent=new Intent(firstContext, ImageViewerActivity.class);
+                   /* intent=new Intent(firstContext, ImageViewerActivity.class);
+                    PostImageItem item=new PostImageItem();
+                    item.setUrl(post.getResources().get(ItemHolder.this.getAdapterPosition()).getUrl());
+                    intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(item));
+                    ItemHolder.this.context.startActivity(intent);*/
+
+                    //do something when the button is clicked.
+                    intent=new Intent(firstContext, PostDetailActivity.class);
                     intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(post));
                     ItemHolder.this.context.startActivity(intent);
                 }else{

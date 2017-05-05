@@ -3,7 +3,10 @@ package com.haikarose.mediarose.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.haikarose.mediarose.R;
 import com.haikarose.mediarose.tools.ConnectionChecker;
@@ -14,7 +17,7 @@ public class NoConnectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_connection);
-        getSupportActionBar().setTitle(getResources().getString(R.string.no_connection));
+        actionBarTitle("Could not connect");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
@@ -31,5 +34,19 @@ public class NoConnectionActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    public void actionBarTitle(String title){
+
+        this.getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        LayoutInflater inflator = LayoutInflater.from(this);
+        View v = inflator.inflate(R.layout.custom_title_other, null);
+
+        //if you need to customize anything else about the text, do it here.
+        //I'm using a custom TextView with a custom font in my layout xml so all I need to do is set title
+        ((TextView)v.findViewById(R.id.title)).setText(title);
+        //assign the view to the actionbar
+        this.getSupportActionBar().setCustomView(v);
     }
 }

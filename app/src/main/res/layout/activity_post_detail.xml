@@ -2,16 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEEEEE"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageView"
         android:src="@drawable/pattern_two"
-        android:scaleType="fitXY"
-       />
+        android:scaleType="centerCrop"
+       />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +25,6 @@
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_margin="8dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/resources_recycler_view"/>
 
@@ -32,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:id="@+id/linearLayout2">
 
@@ -79,7 +78,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            <com.google.android.gms.ads.NativeExpressAdView
+          <!--  <com.google.android.gms.ads.NativeExpressAdView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -88,16 +87,13 @@
                 android:layout_gravity="center_horizontal"
                 ads:adSize="320x200"
                 ads:adUnitId="@string/native_ad_unit_id"
-                android:id="@+id/adView"/>
+                android:id="@+id/adView"/>-->
 
             <include layout="@layout/promo_view_layout"
                 android:id="@+id/include"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 />
 
         </LinearLayout>
