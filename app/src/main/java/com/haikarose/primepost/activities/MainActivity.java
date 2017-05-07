@@ -71,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }
-        }
-            else if(id== R.id.rate_us){
+        }else if(id== R.id.rate_us){
             Uri uri = Uri.parse("market://details?id=" + getBaseContext().getPackageName());
             Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
             // To count with Play market backstack, After pressing back button,

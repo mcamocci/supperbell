@@ -13,6 +13,7 @@ import com.haikarose.primepost.Pojos.Post;
 import com.haikarose.primepost.R;
 import com.haikarose.primepost.activities.PostDetailActivity;
 import com.haikarose.primepost.tools.DateHelper;
+import com.haikarose.primepost.tools.StringUpperHelper;
 import com.haikarose.primepost.tools.TransferrableContent;
 
 import java.net.MalformedURLException;
@@ -80,8 +81,8 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
         public void setData(Post post){
             this.post=post;
             date.setText(DateHelper.getPresentableDate(post.getDate().toString()));
-            message.setText(post.getContent());
-            uploader.setText(post.getName());
+            message.setText(StringUpperHelper.doUpperlization(post.getContent()));
+            uploader.setText(StringUpperHelper.doUpperlization(post.getName()));
             if(post.getResources().size()>1){
                 //more_info.setText(Integer.toString(post.getResources().size()-1)+" "+context.getResources().getString(R.string.eye_label));
             }else{

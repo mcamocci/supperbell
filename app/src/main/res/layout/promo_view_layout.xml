@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
+    android:padding="12dp"
     android:layout_marginBottom="4dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:orientation="vertical"
-    android:background="@drawable/rounded_white"
+    android:background="@color/colorPrimary"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -39,15 +40,15 @@
                 android:id="@+id/brand_name"
                 android:text="OMIL TANZANIA ( omil.co.tz )"
                 android:autoLink="all"
-                android:textColorLink="@color/colorPrimary"
-                android:textColor="@android:color/black"
+                android:textColorLink="#6c6cba"
+                android:textColor="@android:color/white"
                 android:fontFamily="sans-serif-light"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#2e2d2d"
+                android:textColor="#fffbfb"
                 android:id="@+id/promo_message"
                 android:autoLink="all"
                 android:textColorLink="@color/colorPrimary"

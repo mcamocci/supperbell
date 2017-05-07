@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.haikarose.primepost.Pojos.Uploader;
 import com.haikarose.primepost.R;
-import com.haikarose.primepost.activities.PostActivity;
+import com.haikarose.primepost.activities.PostsScrollingActivity;
 import com.haikarose.primepost.tools.DateHelper;
 import java.util.List;
 
@@ -97,12 +97,12 @@ public class UploaderItemAdapter extends RecyclerView.Adapter<UploaderItemAdapte
                     ItemHolder.this.context.startActivity(intent);*/
 
                     //do something when the button is clicked.
-                    intent=new Intent(firstContext, PostActivity.class);
+                    intent=new Intent(firstContext,PostsScrollingActivity.class);
                     intent.putExtra(Uploader.ID,uploaderObject.getId());
                     ItemHolder.this.context.startActivity(intent);
                 }else{
                     //do something when the button is clicked.
-                    intent=new Intent(firstContext, PostActivity.class);
+                    intent=new Intent(firstContext,PostsScrollingActivity.class);
                     intent.putExtra(Uploader.ID,uploaderObject.getId());
                     ItemHolder.this.context.startActivity(intent);
                 }

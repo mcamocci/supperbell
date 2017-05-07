@@ -52,7 +52,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
         <activity android:name=".activities.NoConnectionActivity" />
-        <activity android:name=".activities.PostActivity"></activity>
+        <activity android:name=".activities.PostActivity" />
+        <activity
+            android:name=".activities.PostsScrollingActivity"
+            android:label="@string/title_activity_posts_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -45,6 +45,7 @@
                 android:textSize="14sp"
                 android:paddingRight="12dp"
                 android:paddingLeft="12dp"
+                android:paddingBottom="12dp"
                 android:lineSpacingExtra="6dp"
                 android:textColor="#636060"
                 android:id="@+id/description"
@@ -55,8 +56,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="10dp"
+            android:layout_marginTop="8dp"
+            android:background="#afd0e6"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -64,27 +69,29 @@
                 android:layout_height="30dp"
                 android:layout_marginBottom="4dp"
                 android:layout_gravity="left"
-                android:src="@drawable/ic_more" />
+                android:src="@drawable/ic_more_horiz" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorPrimaryDark"
                 android:gravity="right"
                 android:textSize="12sp"
                 android:id="@+id/more_info"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:text="more" />
+                android:text="More" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:text="sub_time"
+                android:fontFamily="sans-serif-light"
                 android:textSize="12sp"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_marginRight="12dp"
                 android:id="@+id/time"
                 android:gravity="right" />
