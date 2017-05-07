@@ -22,7 +22,7 @@
         android:id="@+id/rate_us"/>
     <item
         android:orderInCategory="104"
-        android:title="Suggest to a friend"
+        android:title="Invite friend"
         android:id="@+id/invites"
         app:showAsAction="never"
         android:icon="@drawable/ic_action_share"/>

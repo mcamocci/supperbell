@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context="com.haikarose.mediarose.activities.ImageViewerActivity">
+    tools:context="com.haikarose.primepost.activities.ImageViewerActivity">
 
-    <com.haikarose.mediarose.tools.TouchImageView
+    <com.haikarose.primepost.tools.TouchImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"

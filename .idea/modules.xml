@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mediarose.iml" filepath="$PROJECT_DIR$/mediarose.iml" />
+      <module fileurl="file://$PROJECT_DIR$/primepost.iml" filepath="$PROJECT_DIR$/primepost.iml" />
     </modules>
   </component>
 </project>

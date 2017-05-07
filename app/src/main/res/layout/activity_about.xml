@@ -7,124 +7,162 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_marginBottom="4dp"
+        android:layout_marginTop="12dp"
         >
 
+
         <LinearLayout
-            android:id="@+id/item_notification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:layout_marginBottom="2dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="50dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:padding="12dp"
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_marginTop="12dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:textColor="@android:color/black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="24sp"
-
-                        android:layout_marginBottom="4dp"
-                        android:drawablePadding="0dp"
-                        android:text="@string/app_name"
-                        android:id="@+id/channel_name" />
-
-                </LinearLayout>
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@android:color/white"
+                    android:src="@drawable/ic_action_bell"
+                    android:id="@+id/more_info"
+                    android:text="P"/>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:textSize="14sp"
-                android:gravity="left"
-                android:fontFamily="sans-serif-light"
-                android:autoLink="all"
-                android:textColorLink="@color/colorPrimary"
-                android:text="@string/about_message"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:textSize="14sp"
-                android:gravity="left"
-                android:fontFamily="sans-serif-light"
-                android:autoLink="all"
-                android:textColorLink="@color/colorPrimary"
-                android:text="@string/email"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:textSize="14sp"
-                android:gravity="left"
-                android:fontFamily="sans-serif-light"
-                android:autoLink="all"
-                android:textColorLink="@color/colorPrimary"
-                android:text="Phone: +255687374009"
-                />
-
-            <TextView
-                android:textSize="12sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:fontFamily="sans-serif-light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/copyrights" />
-
             <LinearLayout
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
+                android:id="@+id/item_notification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="12dp"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="sans-serif-light"
-                        android:text="@string/version_title"
-                        android:layout_marginRight="12dp"
-                        android:id="@+id/time"
-                        android:gravity="right" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:textColor="@color/colorPrimaryDark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-light"
+                            android:drawablePadding="0dp"
+                            android:text="@string/app_name"
+                            android:id="@+id/uploader" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:textSize="14sp"
+                    android:gravity="left"
+                    android:fontFamily="sans-serif-light"
+                    android:autoLink="all"
+                    android:textColorLink="@color/colorPrimary"
+                    android:text="@string/about_message"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:textSize="14sp"
+                    android:gravity="left"
+                    android:fontFamily="sans-serif-light"
+                    android:autoLink="all"
+                    android:textColorLink="@color/colorPrimary"
+                    android:text="@string/email"
+                    android:id="@+id/description" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:textSize="14sp"
+                    android:gravity="left"
+                    android:fontFamily="sans-serif-light"
+                    android:autoLink="all"
+                    android:textColorLink="@color/colorPrimary"
+                    android:text="Phone: +255687374009" />
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_alignBottom="@+id/promo_image"
+                        android:layout_alignRight="@+id/promo_image"
+                        android:layout_alignEnd="@+id/promo_image"
+                        android:layout_marginRight="13dp"
+                        android:layout_marginEnd="13dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/play_button"
+                        android:layout_height="wrap_content"></LinearLayout>
+
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_marginTop="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textSize="12sp"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/copyrights"
+                            android:id="@+id/time"
+                            android:gravity="right" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
+
 
 
 </LinearLayout>
