@@ -9,7 +9,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryDark"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -40,10 +40,9 @@
                 android:id="@+id/brand_name"
                 android:text="OMIL TANZANIA ( omil.co.tz )"
                 android:autoLink="all"
-                android:textColorLink="#6c6cba"
+                android:textColorLink="#f49494"
                 android:textColor="@android:color/white"
                 android:fontFamily="sans-serif-light"
-                android:textStyle="bold"
                 android:textSize="18sp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -58,4 +57,3 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
-    <!-- this is the end of the promo -->

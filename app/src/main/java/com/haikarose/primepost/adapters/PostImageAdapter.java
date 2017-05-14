@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.haikarose.primepost.Pojos.PostImageItem;
@@ -74,8 +75,8 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Item
                 promoImage.setVisibility(View.VISIBLE);
                 try {
                     URL url = new URL(postImageItem.getUrl());
-                    Log.e("url here",CommonInformation.COMMON+"/"+postImageItem.getUrl());
-                    Glide.with(firstContext).load(url.toString()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
+                    //Log.e("url here",CommonInformation.COMMON+"/"+postImageItem.getUrl());
+                    Glide.with(firstContext).load(postImageItem.getUrl()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();

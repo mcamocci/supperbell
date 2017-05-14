@@ -16,7 +16,6 @@ import com.haikarose.primepost.activities.NoConnectionActivity;
 import com.haikarose.primepost.adapters.UploaderItemAdapter;
 import com.haikarose.primepost.tools.CommonInformation;
 import com.haikarose.primepost.tools.ConnectionChecker;
-import com.haikarose.primepost.tools.EndlessRecyclerViewScrollListener;
 import com.haikarose.primepost.tools.RetryObjectFragment;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
@@ -110,6 +109,10 @@ public class HomeFragment extends  Fragment {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 retryObject.hideMessage();
                 retryObject.hideProgress();
+                if(categories.size()<1){
+                    retryObject.showName();
+                    retryObject.showMessage();
+                }
                 retryObject.setListener(new RetryObjectFragment.ReloadListener() {
                     @Override
                     public void onReloaded(String message) {
@@ -131,9 +134,11 @@ public class HomeFragment extends  Fragment {
                 adapter.notifyDataSetChanged();
 
                 if(responseString.length()<5 && categories.size()<1){
+                    retryObject.setReason("There are no content!");
                     retryObject.hideMessage();
                     retryObject.hideProgress();
                     retryObject.hideName();
+                    retryObject.showMessage();
 
                 }
 

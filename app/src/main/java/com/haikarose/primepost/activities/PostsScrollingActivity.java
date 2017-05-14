@@ -82,7 +82,7 @@ public class PostsScrollingActivity extends AppCompatActivity implements RetryOb
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.menu_posts_scrolling,menu);
         SearchManager searchManager =
                 (SearchManager) getSystemService(PostsScrollingActivity.this.SEARCH_SERVICE);
         SearchView searchView =

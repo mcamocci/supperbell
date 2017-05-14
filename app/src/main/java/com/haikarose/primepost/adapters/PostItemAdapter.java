@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.haikarose.primepost.Pojos.Post;
 import com.haikarose.primepost.R;
@@ -94,10 +95,12 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
                         || post.getResources().get(0).getType().equalsIgnoreCase("JPEG")
                         || post.getResources().get(0).getType().equalsIgnoreCase("GIF")) {
                     Log.e("the type",post.getResources().get(0).getType());
+
                     //promoImage.setVisibility(View.VISIBLE);
                     try{
 
                         URL url=new URL(post.getResources().get(0).getUrl());
+                        Log.e("the url here",url.toString());
                       //  Glide.with(firstContext).load(url.toString()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();

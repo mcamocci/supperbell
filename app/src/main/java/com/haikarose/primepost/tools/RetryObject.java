@@ -89,7 +89,7 @@ public class RetryObject {
         object.getName().setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                object.getListener().onReloaded("reloaded");
+                object.getListener().onReloaded("Reloaded");
             }
         });
 

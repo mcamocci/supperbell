@@ -13,22 +13,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-/*import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.google.android.gms.common.api.GoogleApiClient;*/
+import com.bumptech.glide.Glide;
+import com.haikarose.primepost.Pojos.PostImageItem;
 import com.haikarose.primepost.R;
 import com.haikarose.primepost.tools.ConnectionChecker;
+import com.haikarose.primepost.tools.TransferrableContent;
 import com.vungle.publisher.VunglePub;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ImageViewerActivity extends AppCompatActivity {
 
     // get the VunglePub instance
     VunglePub vunglePub = VunglePub.getInstance();
-
+    private PostImageItem postImageItem;
     DownloadManager downloadManager;
 
     @Override
@@ -40,10 +39,10 @@ public class ImageViewerActivity extends AppCompatActivity {
             Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
             startActivity(intent);
         }
-      /*  rewardedVideoAd= MobileAds.getRewardedVideoAdInstance(this);
-        rewardedVideoAd.setRewardedVideoAdListener(this);*/
+       /* rewardedVideoAd= MobileAds.getRewardedVideoAdInstance(this);
+        rewardedVideoAd.setRewardedVideoAdListener(this);*//*
         doVungleWay();
-        //loadAd();
+        loadAd();*/
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         actionBarTitle("PHOTO");
@@ -52,10 +51,16 @@ public class ImageViewerActivity extends AppCompatActivity {
 
         ImageView promo_image = (ImageView) findViewById(R.id.imageView2);
         Context context = getBaseContext();
+        postImageItem= TransferrableContent.fromJsonToPostImageItem(getIntent().getStringExtra(PostImageItem.EXCHANGE_RES_ID));
 
+        URL url1 = null;
+        try {
+            url1 = new URL(postImageItem.getUrl());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-
-        //Glide.with(context).load(url1).placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promo_image);
+        Glide.with(context).load(url1).placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promo_image);
 
     }
 

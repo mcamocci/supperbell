@@ -91,7 +91,7 @@ public class RetryObjectFragment {
         object.getName().setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                object.getListener().onReloaded("reloaded");
+                object.getListener().onReloaded("Refreshed");
             }
         });
 

@@ -10,10 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 /*import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.NativeExpressAdView;*/
 import com.haikarose.primepost.Pojos.Post;
 import com.haikarose.primepost.R;
+import com.haikarose.primepost.adapters.DownloadItemAdapter;
 import com.haikarose.primepost.adapters.PostImageAdapter;
 import com.haikarose.primepost.tools.CommonInformation;
 import com.haikarose.primepost.tools.ConnectionChecker;
@@ -33,7 +35,8 @@ public class PostDetailActivity extends AppCompatActivity {
     private  String shared_content;
     private Post post;
     private List<Object> objectsList=new ArrayList<>();
-    private PostImageAdapter adapter;
+    //private PostImageAdapter adapter;
+    private DownloadItemAdapter adapter;
     private RecyclerView resorcesRecyclerView;
 
 
@@ -46,7 +49,6 @@ public class PostDetailActivity extends AppCompatActivity {
             Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
             startActivity(intent);
         }
-
         post= TransferrableContent.fromJsonToPost(getIntent().getStringExtra(Post.EXCHANGE_ID));
 
         resorcesRecyclerView =(RecyclerView)findViewById(R.id.resources_recycler_view);
@@ -55,7 +57,8 @@ public class PostDetailActivity extends AppCompatActivity {
         resorcesRecyclerView.setLayoutManager(layoutManager);
 
         objectsList.addAll(post.getResources());
-        adapter=new PostImageAdapter(getBaseContext(),objectsList);
+        //adapter=new PostImageAdapter(getBaseContext(),objectsList);
+        adapter=new DownloadItemAdapter(getBaseContext(),objectsList);
         resorcesRecyclerView.setAdapter(adapter);
 
 
@@ -70,20 +73,19 @@ public class PostDetailActivity extends AppCompatActivity {
         View view=findViewById(R.id.include);
         ESAObjectHelper.executeEsaProcess(getBaseContext(), CommonInformation.ESA0BJECT_URL,view);
 
-
         message=(TextView)findViewById(R.id.message);
         time=(TextView)findViewById(R.id.time_of_update);
 
         //the things to be shared//
         shared_content=post.getContent()+" , ( Download "
                 +getResources().getString(R.string.app_name)+" app. " +
-                "https://play.google.com/store/apps/details?id=com.haikarose.mediarose )";
+                "https://play.google.com/store/apps/details?id=com.haikarose.primepost )";
 
         message.setText(StringUpperHelper.doUpperlization(post.getContent()));
 
         time.setText(DateHelper.getPresentableDate(post.getDate()));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        actionBarTitle(StringUpperHelper.doUpperlization(post.getName()));
+        actionBarTitle(post.getName().toUpperCase());
 
     }
 
