@@ -96,6 +96,12 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
     }
@@ -111,9 +117,8 @@ public class PostDetailActivity extends AppCompatActivity {
         int id=item.getItemId();
 
         if(id==android.R.id.home){
-
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish();
-
         }else if(id==R.id.share){
 
             //do the sharing here//

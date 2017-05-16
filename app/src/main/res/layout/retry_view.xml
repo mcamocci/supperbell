@@ -18,7 +18,6 @@
             android:layout_height="match_parent"
             android:weightSum="1">
 
-
             <LinearLayout
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
@@ -36,32 +35,60 @@
                     android:layout_width="52dp"
                     android:layout_height="52dp" />
 
+                     <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/failure_view">
+
+                    <ImageView
+                        android:layout_height="80dp"
+                        android:layout_width="80dp"
+                        android:src="@drawable/ic_cloud_off"
+                        android:id="@+id/error_icon" />
+
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:id="@+id/failed_text"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/error_bold"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Oops" />
+                </LinearLayout>
+
+
                 <TextView
                     android:textSize="20sp"
                     android:id="@+id/message"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/error_bold"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="problems" />
+                    android:text="Could not connect" />
 
                 <TextView
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:id="@+id/retryLabel"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:textColor="@android:color/white"
-                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/error"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_blue"
                     android:gravity="center"
-                    android:text="retry" />
+                    android:text="RETRY" />
 
 
             </LinearLayout>

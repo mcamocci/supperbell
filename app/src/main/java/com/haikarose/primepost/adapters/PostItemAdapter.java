@@ -1,11 +1,14 @@
 package com.haikarose.primepost.adapters;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,11 +62,9 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
 
         private Post post;
         private TextView date;
-        //private TextView more_info;
         private TextView uploader;
         private TextView message;
-        private LinearLayout button;
-       // private ImageView promoImage;
+        private ImageView more_menu;
         private Context context;
 
         public ItemHolder(View view){
@@ -71,12 +72,10 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
             context=view.getContext();
             view.setOnClickListener(this);
             this.date=(TextView)view.findViewById(R.id.time);
-           // this.more_info=(TextView)view.findViewById(R.id.more_info);
             this.message=(TextView)view.findViewById(R.id.description);
             this.uploader=(TextView)view.findViewById(R.id.uploader);
-           /* this.promoImage=(ImageView)view.findViewById(R.id.image);
-            promoImage.setOnClickListener(this);*/
-           // this.button=(LinearLayout)view.findViewById(R.id.button);
+            this.more_menu=(ImageView)view.findViewById(R.id.more_menu);
+            more_menu.setOnClickListener(this);
         }
 
         public void setData(Post post){
@@ -84,34 +83,6 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
             date.setText(DateHelper.getPresentableDate(post.getDate().toString()));
             message.setText(StringUpperHelper.doUpperlization(post.getContent()));
             uploader.setText(StringUpperHelper.doUpperlization(post.getName()));
-            if(post.getResources().size()>1){
-                //more_info.setText(Integer.toString(post.getResources().size()-1)+" "+context.getResources().getString(R.string.eye_label));
-            }else{
-               // more_info.setText(context.getResources().getString(R.string.eye_label_empty));
-            }
-            if(post.getResources().size()>0){
-                if (post.getResources().get(0).getType().equalsIgnoreCase("PNG")
-                        || post.getResources().get(0).getType().equalsIgnoreCase("JPG")
-                        || post.getResources().get(0).getType().equalsIgnoreCase("JPEG")
-                        || post.getResources().get(0).getType().equalsIgnoreCase("GIF")) {
-                    Log.e("the type",post.getResources().get(0).getType());
-
-                    //promoImage.setVisibility(View.VISIBLE);
-                    try{
-
-                        URL url=new URL(post.getResources().get(0).getUrl());
-                        Log.e("the url here",url.toString());
-                      //  Glide.with(firstContext).load(url.toString()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
-                }else{
-                    Log.e("the type not image",post.getResources().get(0).getType());
-                    //promoImage.setVisibility(View.GONE);
-                }
-            }else{
-                //promoImage.setVisibility(View.GONE);
-            }
         }
 
         @Override
@@ -119,18 +90,30 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
                 Intent intent;
 
                 if(v.getId()==R.id.image){
-                   /* intent=new Intent(firstContext, ImageViewerActivity.class);
-                    PostImageItem item=new PostImageItem();
-                    item.setUrl(post.getResources().get(ItemHolder.this.getAdapterPosition()).getUrl());
-                    intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(item));
-                    ItemHolder.this.context.startActivity(intent);*/
-
-                    //do something when the button is clicked.
                     intent=new Intent(firstContext, PostDetailActivity.class);
                     intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(post));
                     ItemHolder.this.context.startActivity(intent);
+                }else if(v.getId()==R.id.more_menu){
+
+                    PopupMenu popupMenu=new PopupMenu(context,v);
+                    popupMenu.getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu());
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if(item.getTitle().equals("Open")){
+                                Intent intent=new Intent(firstContext, PostDetailActivity.class);
+                                intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(post));
+                                ItemHolder.this.context.startActivity(intent);
+                            }else if(item.getTitle().equals("Share")){
+                                Toast.makeText(context,"share",Toast.LENGTH_LONG).show();
+                            }
+                            return false;
+                        }
+                    });
+
+                    popupMenu.show();
+
                 }else{
-                    //do something when the button is clicked.
                     intent=new Intent(firstContext, PostDetailActivity.class);
                     intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(post));
                     ItemHolder.this.context.startActivity(intent);

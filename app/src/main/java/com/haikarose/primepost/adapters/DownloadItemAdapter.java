@@ -16,8 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.haikarose.primepost.Pojos.PostImageItem;
 import com.haikarose.primepost.R;
+import com.haikarose.primepost.activities.ImageViewerActivity;
 import com.haikarose.primepost.tools.FileDownloadOperation;
 import com.haikarose.primepost.tools.FileTypeHelper;
+import com.haikarose.primepost.tools.StringUpperHelper;
+import com.haikarose.primepost.tools.TransferrableContent;
+
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -41,7 +46,7 @@ public class DownloadItemAdapter extends RecyclerView.Adapter<DownloadItemAdapte
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.download_view,parent,false);
-        NoteViewHolder holder=new NoteViewHolder(view);
+        NoteViewHolder holder=new NoteViewHolder(view,context);
         return holder;
     }
 
@@ -63,13 +68,14 @@ public class DownloadItemAdapter extends RecyclerView.Adapter<DownloadItemAdapte
         private TextView preview;
         private TextView share;
         private TextView download;
+        private Context context;
         private long enqueue;
         private DownloadManager dm;
         private PostImageItem downloadableItem;
 
         private String type;
 
-        public NoteViewHolder(View view){
+        public NoteViewHolder(View view,Context context){
             super(view);
             title=(TextView)view.findViewById(R.id.title);
             preview=(TextView)view.findViewById(R.id.preview);
@@ -79,6 +85,7 @@ public class DownloadItemAdapter extends RecyclerView.Adapter<DownloadItemAdapte
             preview.setOnClickListener(this);
             share.setOnClickListener(this);
             download.setOnClickListener(this);
+            this.context=context;
 
         }
 
@@ -94,17 +101,24 @@ public class DownloadItemAdapter extends RecyclerView.Adapter<DownloadItemAdapte
             }
 
             File file=new File(downloadableItem.getUrl());
-           // title.setText(downloadableItem.getUrl().split(".")[1]);
+            title.setText(StringUpperHelper.doUpperlization(FilenameUtils.getBaseName(downloadableItem.getUrl())));
 
-           /* if(FileDownloadOperation.isFileAvaillable(context,file)){
-                download.setImageResource(R.drawable.ic_remove_red_eye);
+            if(FileDownloadOperation.isFileAvaillable(context,file)&&
+                    !Arrays.asList(FileTypeHelper.imagesList).contains(item.getType().toUpperCase())){
+                download.setText("Open");
+            }else if(FileDownloadOperation.isFileAvaillable(context,file)&&
+                    Arrays.asList(FileTypeHelper.imagesList).contains(item.getType().toUpperCase())){
+                preview.setVisibility(View.INVISIBLE);
+                download.setText("Open");
             }else{
-                download.setImageResource(R.drawable.ic_action_download);
-            }*/
+                download.setText("Download");
+                preview.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
         public void onClick(View v) {
+            Intent intent=null;
             if(v.getId()==R.id.download){
 
                 File file=new File(downloadableItem.getUrl());
@@ -156,7 +170,13 @@ public class DownloadItemAdapter extends RecyclerView.Adapter<DownloadItemAdapte
                 cooler_one.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(cooler_one);*/
             }else if(v.getId()==R.id.preview){
-
+                intent = new Intent(context, ImageViewerActivity.class);
+                PostImageItem imageItem=new PostImageItem();
+                imageItem.setUrl(downloadableItem.getUrl());
+                imageItem.setType(downloadableItem.getType());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PostImageItem.EXCHANGE_RES_ID, TransferrableContent.toJsonObject(imageItem));
+                context.startActivity(intent);
             }
         }
     }

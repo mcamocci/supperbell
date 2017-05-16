@@ -69,18 +69,9 @@ public class HomeFragment extends  Fragment {
         recyclerView.setLayoutManager(manager);
 
         doTask(CommonInformation.GET_POST_UPLOADERS,uploaderList);
-
-       /* recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(manager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                doTask(CommonInformation.GET_POST_UPLOADERS,uploaderList);
-
-            }
-        });*/
         adapter=new UploaderItemAdapter(getContext(),uploaderList);
         recyclerView.setAdapter(adapter);
 
-        //the network issue is solved here
         return view;
     }
 
@@ -93,6 +84,7 @@ public class HomeFragment extends  Fragment {
     public void doTask(final String url,final List<Object> categories){
 
         AsyncHttpClient client=new AsyncHttpClient();
+        client.setMaxRetriesAndTimeout(2,10000);
         RequestParams params=new RequestParams();
 
         client.post(getContext(), url, params, new TextHttpResponseHandler() {

@@ -1,5 +1,6 @@
 package com.haikarose.primepost.activities;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -25,6 +26,7 @@ import com.haikarose.primepost.R;
 import com.haikarose.primepost.adapters.PostItemAdapter;
 import com.haikarose.primepost.tools.CommonInformation;
 import com.haikarose.primepost.tools.EndlessRecyclerViewScrollListener;
+import com.haikarose.primepost.tools.PermissionHelper;
 import com.haikarose.primepost.tools.RetryObject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
@@ -53,6 +55,10 @@ public class PostsScrollingActivity extends AppCompatActivity implements RetryOb
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Posts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        String[] PERMISSIONS = {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.MEDIA_CONTENT_CONTROL};
+        PermissionHelper.check(this,PERMISSIONS);
 
         uploader_id=getIntent().getIntExtra(Uploader.ID,0);
         //actionBarTitle("Posts");
@@ -100,6 +106,7 @@ public class PostsScrollingActivity extends AppCompatActivity implements RetryOb
 
         Intent intent;
         if(id==android.R.id.home){
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish();
         }else if(id==R.id.feedback){
             intent = new Intent(Intent.ACTION_SENDTO);
@@ -184,6 +191,12 @@ public class PostsScrollingActivity extends AppCompatActivity implements RetryOb
 
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override

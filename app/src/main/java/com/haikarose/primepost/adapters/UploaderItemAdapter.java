@@ -12,6 +12,8 @@ import com.haikarose.primepost.Pojos.Uploader;
 import com.haikarose.primepost.R;
 import com.haikarose.primepost.activities.PostsScrollingActivity;
 import com.haikarose.primepost.tools.DateHelper;
+import com.haikarose.primepost.tools.StringUpperHelper;
+
 import java.util.List;
 
 
@@ -55,8 +57,6 @@ public class UploaderItemAdapter extends RecyclerView.Adapter<UploaderItemAdapte
         private TextView more_info;
         private TextView uploader;
         private TextView message;
-        private LinearLayout button;
-       // private ImageView promoImage;
         private Context context;
 
         public ItemHolder(View view){
@@ -67,16 +67,13 @@ public class UploaderItemAdapter extends RecyclerView.Adapter<UploaderItemAdapte
             this.more_info=(TextView)view.findViewById(R.id.more_info);
             this.message=(TextView)view.findViewById(R.id.description);
             this.uploader=(TextView)view.findViewById(R.id.uploader);
-           /* this.promoImage=(ImageView)view.findViewById(R.id.image);
-            promoImage.setOnClickListener(this);*/
-           // this.button=(LinearLayout)view.findViewById(R.id.button);
         }
 
         public void setData(Uploader uploaderO){
             this.uploaderObject=uploaderO;
             date.setText(DateHelper.getPresentableDate(""));
             message.setText(uploaderObject.getDetails());
-            uploader.setText(uploaderObject.getName().toUpperCase());
+            uploader.setText(StringUpperHelper.doUpperlization(uploaderObject.getName().toUpperCase()));
             if(uploaderObject.getPostCount()>1){
                 more_info.setText(Integer.toString(uploaderObject.getPostCount()));
             }else{
@@ -90,13 +87,6 @@ public class UploaderItemAdapter extends RecyclerView.Adapter<UploaderItemAdapte
                 Intent intent;
 
                 if(v.getId()==R.id.image){
-                   /* intent=new Intent(firstContext, ImageViewerActivity.class);
-                    PostImageItem item=new PostImageItem();
-                    item.setUrl(post.getResources().get(ItemHolder.this.getAdapterPosition()).getUrl());
-                    intent.putExtra(Post.EXCHANGE_ID, TransferrableContent.toJsonObject(item));
-                    ItemHolder.this.context.startActivity(intent);*/
-
-                    //do something when the button is clicked.
                     intent=new Intent(firstContext,PostsScrollingActivity.class);
                     intent.putExtra(Uploader.ID,uploaderObject.getId());
                     ItemHolder.this.context.startActivity(intent);

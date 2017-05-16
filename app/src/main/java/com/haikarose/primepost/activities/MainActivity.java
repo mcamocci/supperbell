@@ -1,5 +1,6 @@
 package com.haikarose.primepost.activities;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.haikarose.primepost.HomeFragment;
 import com.haikarose.primepost.R;
 import com.haikarose.primepost.tools.ConnectionChecker;
+import com.haikarose.primepost.tools.PermissionHelper;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        String[] PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.MEDIA_CONTENT_CONTROL};
+        PermissionHelper.check(this,PERMISSIONS);
+
     }
 
     @Override
@@ -46,11 +53,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
 
         Intent intent;
         if(id==android.R.id.home){
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish();
         }else if(id==R.id.feedback){
             intent = new Intent(Intent.ACTION_SENDTO);
@@ -115,4 +129,6 @@ public class MainActivity extends AppCompatActivity {
         //assign the view to the actionbar
         this.getSupportActionBar().setCustomView(v);
     }
+
+
 }

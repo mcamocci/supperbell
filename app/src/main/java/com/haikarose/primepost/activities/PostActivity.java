@@ -72,6 +72,12 @@ public class PostActivity extends AppCompatActivity implements RetryObject.Reloa
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
     public void actionBarTitle(String title){
 
         this.getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -138,6 +144,7 @@ public class PostActivity extends AppCompatActivity implements RetryObject.Reloa
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
         if(id==android.R.id.home){
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish();
         }
         return true;

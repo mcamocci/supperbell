@@ -51,6 +51,7 @@
                     android:layout_marginBottom="8dp"
                     android:textSize="14sp"
                     android:gravity="left"
+                    android:textColor="@color/black"
                     android:fontFamily="sans-serif-light"
                     android:autoLink="all"
                     android:textColorLink="@color/colorPrimary"

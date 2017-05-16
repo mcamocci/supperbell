@@ -13,6 +13,47 @@ import com.haikarose.primepost.R;
 
 public class RetryObject {
 
+    private TextView name;
+    private TextView message;
+    private ProgressBar progressBar;
+    private ReloadListener listener;
+    private View failureView;
+
+    public static RetryObject getInstance(final Activity activity){
+
+        TextView name=(TextView)activity.findViewById(R.id.retryLabel);
+        TextView message=(TextView)activity.findViewById(R.id.message);
+        ProgressBar progressBar=(ProgressBar)activity.findViewById(R.id.progressBar);
+        View failureView=activity.findViewById(R.id.failure_view);
+
+        final RetryObject object=new RetryObject();
+        object.setMessage(message);
+        object.setName(name);
+        object.setProgressBar(progressBar);
+        object.setFailureView(failureView);
+        object.getName().setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                object.getListener().onReloaded("Loading");
+            }
+        });
+
+        return object;
+    }
+
+
+    public interface ReloadListener{
+        void onReloaded(String message);
+    }
+
+    public View getFailureView() {
+        return failureView;
+    }
+
+    public void setFailureView(View view) {
+        this.failureView = view;
+    }
+
     public TextView getName() {
         return name;
     }
@@ -46,10 +87,12 @@ public class RetryObject {
 
     public void hideMessage(){
         this.message.setVisibility(View.INVISIBLE);
+        this.failureView.setVisibility(View.INVISIBLE);
     }
 
     public  void showMessage(){
         this.message.setVisibility(View.VISIBLE);
+        this.failureView.setVisibility(View.VISIBLE);
     }
 
     public void hideName(){
@@ -63,11 +106,6 @@ public class RetryObject {
         this.message.setText(reason);
     }
 
-    private TextView name;
-    private TextView message;
-    private ProgressBar progressBar;
-    private ReloadListener listener;
-
     public void setListener(ReloadListener listener){
         this.listener=listener;
     }
@@ -76,30 +114,6 @@ public class RetryObject {
         return this.listener;
     }
 
-    public static RetryObject getInstance(final Activity activity){
-
-        TextView name=(TextView)activity.findViewById(R.id.retryLabel);
-        TextView message=(TextView)activity.findViewById(R.id.message);
-        ProgressBar progressBar=(ProgressBar)activity.findViewById(R.id.progressBar);
-
-        final RetryObject object=new RetryObject();
-        object.setMessage(message);
-        object.setName(name);
-        object.setProgressBar(progressBar);
-        object.getName().setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                object.getListener().onReloaded("Reloaded");
-            }
-        });
-
-        return object;
-    }
-
-
-    public interface ReloadListener{
-        void onReloaded(String message);
-    }
 
 
 }
