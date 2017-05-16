@@ -32,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         actionBarTitle("PrimePost");
 
-        HomeFragment homeFragment=new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
-
         if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
             Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
             startActivity(intent);
         }
+
+        HomeFragment homeFragment=new HomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
 
         String[] PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.MEDIA_CONTENT_CONTROL};

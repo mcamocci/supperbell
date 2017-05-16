@@ -25,9 +25,11 @@ import com.haikarose.primepost.Pojos.Uploader;
 import com.haikarose.primepost.R;
 import com.haikarose.primepost.adapters.PostItemAdapter;
 import com.haikarose.primepost.tools.CommonInformation;
+import com.haikarose.primepost.tools.ConnectionChecker;
 import com.haikarose.primepost.tools.EndlessRecyclerViewScrollListener;
 import com.haikarose.primepost.tools.PermissionHelper;
 import com.haikarose.primepost.tools.RetryObject;
+import com.haikarose.primepost.tools.RetryObjectFragment;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -169,6 +171,10 @@ public class PostsScrollingActivity extends AppCompatActivity implements RetryOb
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 retryObject.hideMessage();
                 retryObject.hideProgress();
+                if(categories.size()<1){
+                    retryObject.showName();
+                    retryObject.showMessage();
+                }
 
             }
 
@@ -191,6 +197,15 @@ public class PostsScrollingActivity extends AppCompatActivity implements RetryOb
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
+            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

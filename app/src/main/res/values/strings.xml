@@ -14,7 +14,7 @@
     <string name="dialog_text">Please enjoy watching a 10 seconds promo video from sponsors while we perform the download process. You can cancel after seeing the close button on the promo video.</string>
     <string name="dialog_text_download">The requested download action is not yet complete , Please enjoy watching a 10 seconds promo video from sponsors , You may cancel.</string>
     <string name="no_connection">Couldnt connect!!</string>
-    <string name="network_problem">Poor connection , try again later!!</string>
+    <string name="network_problem">Please make sure data connection are on!!</string>
     <string name="eye_label">more</string>
     <string name="eye_label_empty">detail</string>
     <string name="no_content">no results please try to check again later for the new published post</string>

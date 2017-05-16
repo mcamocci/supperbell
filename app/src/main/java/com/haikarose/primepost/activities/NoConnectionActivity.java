@@ -1,6 +1,6 @@
 package com.haikarose.primepost.activities;
 
-import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.haikarose.primepost.R;
-import com.haikarose.primepost.tools.ConnectionChecker;
 
 public class NoConnectionActivity extends AppCompatActivity {
 
@@ -17,13 +16,8 @@ public class NoConnectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_connection);
-        actionBarTitle("Could not connect");
+        actionBarTitle("Data connection off");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
-            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
-            startActivity(intent);
-        }
 
     }
 
