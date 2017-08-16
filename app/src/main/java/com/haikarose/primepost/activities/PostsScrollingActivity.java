@@ -12,11 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,7 +26,6 @@ import com.haikarose.primepost.tools.ConnectionChecker;
 import com.haikarose.primepost.tools.EndlessRecyclerViewScrollListener;
 import com.haikarose.primepost.tools.PermissionHelper;
 import com.haikarose.primepost.tools.RetryObject;
-import com.haikarose.primepost.tools.RetryObjectFragment;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -63,7 +59,6 @@ public class PostsScrollingActivity extends AppCompatActivity implements RetryOb
         PermissionHelper.check(this,PERMISSIONS);
 
         uploader_id=getIntent().getIntExtra(Uploader.ID,0);
-        //actionBarTitle("Posts");
 
         recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
         retryObject= RetryObject.getInstance(this);
@@ -72,6 +67,7 @@ public class PostsScrollingActivity extends AppCompatActivity implements RetryOb
         LinearLayoutManager manager=new LinearLayoutManager(getBaseContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
+        recyclerView.setNestedScrollingEnabled(false);
 
         doTask(CommonInformation.GET_POST_LIST,PAGE,8,postListOne);
 

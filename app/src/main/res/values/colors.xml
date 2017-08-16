@@ -7,8 +7,9 @@
     <color name="download_color">#3498db</color>
     <color name="share_color">#2ecc71</color>
     <color name="preview_color">#1abc9c</color>
-    <color name="background">#EEEEEE</color>
+    <color name="background">#DCDEE3</color>
     <color name="error_bold">#979797</color>
-    <color name="black">#000000</color>
     <color name="error">#FF005c</color>
+    <color name="black">#000000</color>
+
 </resources>

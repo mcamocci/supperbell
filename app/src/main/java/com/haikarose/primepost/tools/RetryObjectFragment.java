@@ -82,15 +82,15 @@ public class RetryObjectFragment {
     }
 
     public void hideProgress(){
-        this.progressBar.setVisibility(View.INVISIBLE);
+        this.progressBar.setVisibility(View.GONE);
     }
     public void showProgress(){
         this.progressBar.setVisibility(View.VISIBLE);
     }
 
     public void hideMessage(){
-        this.message.setVisibility(View.INVISIBLE);
-        this.failureView.setVisibility(View.INVISIBLE);
+        this.message.setVisibility(View.GONE);
+        this.failureView.setVisibility(View.GONE);
     }
 
     public  void showMessage(){
@@ -99,7 +99,7 @@ public class RetryObjectFragment {
     }
 
     public void hideName(){
-        this.name.setVisibility(View.INVISIBLE);
+        this.name.setVisibility(View.GONE);
     }
     public void showName(){
         this.name.setVisibility(View.VISIBLE);

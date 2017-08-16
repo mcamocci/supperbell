@@ -27,7 +27,6 @@ dependencies {
 
     //compile(name:'VungleAdapter', 'ext':'aar')  // Vungle Adapter for AdMob
     compile 'com.loopj.android:android-async-http:1.4.9'
-    compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.haikarose.primepost.activities.PostsActivity"
-    tools:showIn="@layout/activity_posts_final">
+    tools:context="com.haikarose.primepost.activities.PostsScrollingActivity"
+    tools:showIn="@layout/activity_posts_scrolling">
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/background"
         android:elevation="4dp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
@@ -23,15 +22,15 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-       >
+        >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            />
 
         <include layout="@layout/retry_view"
             android:layout_width="wrap_content"
@@ -42,4 +41,4 @@
 
     </RelativeLayout >
 
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

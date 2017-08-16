@@ -1,8 +1,5 @@
 package com.haikarose.primepost.tools;
 
-/**
- * Created by root on 7/30/16.
- */
 public class StringUpperHelper {
 
     public static String doUpperlization(String string){

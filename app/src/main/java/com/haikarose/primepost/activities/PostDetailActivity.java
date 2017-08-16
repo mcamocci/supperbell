@@ -10,13 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-/*import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.NativeExpressAdView;*/
 import com.haikarose.primepost.Pojos.Post;
 import com.haikarose.primepost.R;
 import com.haikarose.primepost.adapters.DownloadItemAdapter;
-import com.haikarose.primepost.adapters.PostImageAdapter;
 import com.haikarose.primepost.tools.CommonInformation;
 import com.haikarose.primepost.tools.ConnectionChecker;
 import com.haikarose.primepost.tools.DateHelper;
@@ -52,6 +48,7 @@ public class PostDetailActivity extends AppCompatActivity {
         post= TransferrableContent.fromJsonToPost(getIntent().getStringExtra(Post.EXCHANGE_ID));
 
         resorcesRecyclerView =(RecyclerView)findViewById(R.id.resources_recycler_view);
+        resorcesRecyclerView.setNestedScrollingEnabled(false);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getBaseContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         resorcesRecyclerView.setLayoutManager(layoutManager);

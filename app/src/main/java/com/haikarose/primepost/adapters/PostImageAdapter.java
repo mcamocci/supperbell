@@ -3,18 +3,15 @@ package com.haikarose.primepost.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.haikarose.primepost.Pojos.PostImageItem;
 import com.haikarose.primepost.R;
 import com.haikarose.primepost.activities.ImageViewerActivity;
-import com.haikarose.primepost.tools.CommonInformation;
 import com.haikarose.primepost.tools.TransferrableContent;
 
 import java.net.MalformedURLException;
@@ -62,6 +59,7 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Item
 
         public ItemHolder(View view) {
             super(view);
+            view.setOnClickListener(this);
             context = view.getContext();
             view.setOnClickListener(this);
             this.promoImage = (ImageView) view.findViewById(R.id.image);
@@ -75,7 +73,6 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Item
                 promoImage.setVisibility(View.VISIBLE);
                 try {
                     URL url = new URL(postImageItem.getUrl());
-                    //Log.e("url here",CommonInformation.COMMON+"/"+postImageItem.getUrl());
                     Glide.with(firstContext).load(postImageItem.getUrl()).centerCrop().placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promoImage);
 
                 } catch (MalformedURLException e) {

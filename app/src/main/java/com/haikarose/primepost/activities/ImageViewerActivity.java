@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,9 +18,6 @@ import com.haikarose.primepost.R;
 import com.haikarose.primepost.tools.ConnectionChecker;
 import com.haikarose.primepost.tools.TransferrableContent;
 import com.vungle.publisher.VunglePub;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class ImageViewerActivity extends AppCompatActivity {
 
@@ -45,22 +41,14 @@ public class ImageViewerActivity extends AppCompatActivity {
         loadAd();*/
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        actionBarTitle("PHOTO");
+        actionBarTitle("Haikarosetz explore");
         getSupportActionBar().setIcon(R.drawable.ic_action_camera);
 
 
         ImageView promo_image = (ImageView) findViewById(R.id.imageView2);
         Context context = getBaseContext();
         postImageItem= TransferrableContent.fromJsonToPostImageItem(getIntent().getStringExtra(PostImageItem.EXCHANGE_RES_ID));
-
-        URL url1 = null;
-        try {
-            url1 = new URL(postImageItem.getUrl());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        Glide.with(context).load(url1).placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promo_image);
+        Glide.with(context).load(postImageItem.getUrl()).placeholder(android.R.drawable.editbox_dropdown_light_frame).into(promo_image);
 
     }
 
@@ -75,21 +63,6 @@ public class ImageViewerActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
-        }else if(id==R.id.share){
-            if(vunglePub.isAdPlayable()){
-                Log.e("playable","yes");
-                showNetDialogShare(getBaseContext(),"Download content");
-
-            }else{
-                Log.e("playable","no");
-            }
-        }else if(id==R.id.download){
-            if(vunglePub.isAdPlayable()){
-                Log.e("playable","yes");
-                showNetDialog(getBaseContext(),"Download content");
-            }else{
-                Log.e("playable","no");
-            }
         }
         return true;
     }

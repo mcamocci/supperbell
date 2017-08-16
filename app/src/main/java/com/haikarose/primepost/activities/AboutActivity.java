@@ -14,7 +14,6 @@ import com.haikarose.primepost.tools.ConnectionChecker;
 public class AboutActivity extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,16 +22,17 @@ public class AboutActivity extends AppCompatActivity {
         actionBarTitle("About");
 
         if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
-            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            Intent intent = new Intent(getBaseContext(), NoConnectionActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        if(id==android.R.id.home){
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
         return true;
@@ -41,19 +41,19 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (!(ConnectionChecker.isInternetConnected(getBaseContext()))) {
-            Intent intent=new Intent(getBaseContext(),NoConnectionActivity.class);
+            Intent intent = new Intent(getBaseContext(), NoConnectionActivity.class);
             startActivity(intent);
         }
     }
 
-    public void actionBarTitle(String title){
+    public void actionBarTitle(String title) {
 
         this.getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -62,7 +62,7 @@ public class AboutActivity extends AppCompatActivity {
 
         //if you need to customize anything else about the text, do it here.
         //I'm using a custom TextView with a custom font in my layout xml so all I need to do is set title
-        ((TextView)v.findViewById(R.id.title)).setText(title);
+        ((TextView) v.findViewById(R.id.title)).setText(title);
         //assign the view to the actionbar
         this.getSupportActionBar().setCustomView(v);
     }

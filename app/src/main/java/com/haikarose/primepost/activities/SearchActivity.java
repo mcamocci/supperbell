@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
         LinearLayoutManager manager=new LinearLayoutManager(getBaseContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-
+        recyclerView.setNestedScrollingEnabled(false);
 
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(manager) {
             @Override

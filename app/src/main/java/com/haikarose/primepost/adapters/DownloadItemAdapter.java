@@ -1,10 +1,8 @@
 package com.haikarose.primepost.adapters;
 
 import android.app.DownloadManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -124,21 +122,35 @@ public class DownloadItemAdapter extends RecyclerView.Adapter<DownloadItemAdapte
                 File file=new File(downloadableItem.getUrl());
 
                 if(FileDownloadOperation.isFileAvaillable(context,file)){
-                    MimeTypeMap myMime = MimeTypeMap.getSingleton();
-                    Intent newIntent = new Intent(Intent.ACTION_VIEW);
-                    String mimeType = myMime.getMimeTypeFromExtension(fileExt(file.getAbsolutePath()).substring(1));
-                    newIntent.setDataAndType(Uri.fromFile(
-                            new File(FileDownloadOperation.downloadToFolder(context)
-                    +File.separator+file.getName())),mimeType);
-                    newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    try {
-                        context.startActivity(newIntent);
-                    } catch (ActivityNotFoundException e) {
-                        Toast.makeText(context, "No handler for this type of file.", Toast.LENGTH_LONG).show();
-                    }
-                }else{
 
-                    Toast.makeText(context,"Download started",Toast.LENGTH_LONG).show();
+                    MimeTypeMap map = MimeTypeMap.getSingleton();
+                    String ext = MimeTypeMap.getFileExtensionFromUrl(file.getName());
+                    String type = map.getMimeTypeFromExtension(ext);
+
+                    if(Arrays.asList(FileTypeHelper.imagesList).contains(ext.toUpperCase())){
+                        intent = new Intent(context, ImageViewerActivity.class);
+                        PostImageItem imageItem=new PostImageItem();
+                        imageItem.setUrl(FileDownloadOperation.downloadToFolder(context)
+                                +File.separator+file.getName());
+                        imageItem.setType(ext);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(PostImageItem.EXCHANGE_RES_ID, TransferrableContent.toJsonObject(imageItem));
+                        context.startActivity(intent);
+                    }else{
+                        Toast.makeText(context,ext,Toast.LENGTH_LONG).show();
+                        if (type == null)
+                            type = "*/*";
+                        intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(
+                                new File(FileDownloadOperation.downloadToFolder(context)
+                                        +File.separator+file.getName())),type);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
+
+                   }else{
+
+                    Toast.makeText(context,"Downloading",Toast.LENGTH_LONG).show();
                     dm = (DownloadManager)context.getSystemService(DOWNLOAD_SERVICE);
 
                     DownloadManager.Request request = new DownloadManager.Request(

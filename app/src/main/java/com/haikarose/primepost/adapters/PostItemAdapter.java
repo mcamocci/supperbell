@@ -3,7 +3,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +18,6 @@ import com.haikarose.primepost.activities.PostDetailActivity;
 import com.haikarose.primepost.tools.DateHelper;
 import com.haikarose.primepost.tools.StringUpperHelper;
 import com.haikarose.primepost.tools.TransferrableContent;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 
@@ -67,15 +63,17 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ItemHo
         private ImageView more_menu;
         private Context context;
 
+
         public ItemHolder(View view){
             super(view);
-            context=view.getContext();
             view.setOnClickListener(this);
             this.date=(TextView)view.findViewById(R.id.time);
             this.message=(TextView)view.findViewById(R.id.description);
+            this.message.setOnClickListener(this);
             this.uploader=(TextView)view.findViewById(R.id.uploader);
             this.more_menu=(ImageView)view.findViewById(R.id.more_menu);
             more_menu.setOnClickListener(this);
+            context=view.getContext();
         }
 
         public void setData(Post post){

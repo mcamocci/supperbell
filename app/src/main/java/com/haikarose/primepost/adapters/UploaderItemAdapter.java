@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.haikarose.primepost.Pojos.Uploader;
 import com.haikarose.primepost.R;
@@ -59,20 +60,26 @@ public class UploaderItemAdapter extends RecyclerView.Adapter<UploaderItemAdapte
         private TextView message;
         private Context context;
 
+
         public ItemHolder(View view){
             super(view);
             context=view.getContext();
             view.setOnClickListener(this);
             this.date=(TextView)view.findViewById(R.id.time);
+            date.setOnClickListener(this);
             this.more_info=(TextView)view.findViewById(R.id.more_info);
+            more_info.setOnClickListener(this);
             this.message=(TextView)view.findViewById(R.id.description);
+            message.setOnClickListener(this);
             this.uploader=(TextView)view.findViewById(R.id.uploader);
+            uploader.setOnClickListener(this);
         }
 
         public void setData(Uploader uploaderO){
             this.uploaderObject=uploaderO;
             date.setText(DateHelper.getPresentableDate(""));
             message.setText(uploaderObject.getDetails());
+            message.setOnClickListener(this);
             uploader.setText(StringUpperHelper.doUpperlization(uploaderObject.getName().toUpperCase()));
             if(uploaderObject.getPostCount()>1){
                 more_info.setText(Integer.toString(uploaderObject.getPostCount()));
@@ -84,20 +91,10 @@ public class UploaderItemAdapter extends RecyclerView.Adapter<UploaderItemAdapte
 
         @Override
         public void onClick(View v) {
-                Intent intent;
-
-                if(v.getId()==R.id.image){
-                    intent=new Intent(firstContext,PostsScrollingActivity.class);
-                    intent.putExtra(Uploader.ID,uploaderObject.getId());
-                    ItemHolder.this.context.startActivity(intent);
-                }else{
-                    //do something when the button is clicked.
-                    intent=new Intent(firstContext,PostsScrollingActivity.class);
-                    intent.putExtra(Uploader.ID,uploaderObject.getId());
-                    ItemHolder.this.context.startActivity(intent);
-                }
-
-
+            Intent intent;
+            intent=new Intent(firstContext,PostsScrollingActivity.class);
+            intent.putExtra(Uploader.ID,uploaderObject.getId());
+            ItemHolder.this.context.startActivity(intent);
         }
     }
 }
